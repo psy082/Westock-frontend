@@ -4,9 +4,14 @@ import reset from "styled-reset";
 const GlobalStyles = createGlobalStyle`
   ${reset};
 
-  a {
-    text-decoration:none;
-    color:inherit;
+  ul,
+  ol {
+    list-style: none;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: none;
   }
 
   *:focus {
@@ -23,6 +28,7 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    font: inherit;
   }
   
   body {
