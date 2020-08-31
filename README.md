@@ -1,68 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 11기 2차 프로젝트: StockX 클론코딩(front-end)
 
-## Available Scripts
+## 프로젝트 소개 및 목적
 
-In the project directory, you can run:
+- 소개: 패션 아이템 경매 사이트 [StockX](https://stockx.com/)를 클론 코딩하는 프로젝트
+- 목적[ [wecode 프로젝트 체크 리스트](https://www.notion.so/2-5ce37997b5db494ea67c5387eb8850f4)]
+  1. Progress: Scrum 진행 방식에 대해 이해하고 적용해며 프로젝트를 진행한다.
+  2. Communication: 협업 프로젝트를 통해 프론트 간의, 또한 백엔드와의 의사소통에서 필요한 내용들을 경험한다. 매일 아침 스탠드업 미팅을 가진다.
+  3. React: 함수형 React 컴포넌트, Hook을 사용하여 데이터 통신, 컴포넌트 분리 및 관리, 컴포넌트 간 데이터 바인딩을 적용해 본다.
+  4. Styled-Components: js 파일 안에서 컴포넌트의 스타일을 지정하고, 컴포넌트의 상태를 props로 받아 스타일 적용을 다르게 할 수 있다.
+  5. Network: fetch나 axios를 사용하여 서버 api에 요청하고 응답받은 데이터를 화면에 보여준다.
 
-### `npm start`
+## 개발 기간
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 2020년 8월 31일 ~ 2020년 9월 11일(12일)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 팀원
 
-### `npm test`
+- 김동호
+- 류상욱
+- 송다슬
+- 이영섭
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 구현 페이지 및 기능
 
-### `npm run build`
+### 1. 기술 스택
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- HTML, CSS, JS(es6+)
+- React(CRA 세팅), Styled-Components(SCSS)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### 2. 협업 툴
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Git
+- Slack
+- Trello
+- Google Meet
+- Zoom
 
-### `npm run eject`
+### 3. 구현 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 네비게이션 바
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 로그인 및 회원가입
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### 메인 페이지
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### 상세 페이지
 
-## Learn More
+#### 상품 리스트 페이지
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### 사용자 개인 페이지
