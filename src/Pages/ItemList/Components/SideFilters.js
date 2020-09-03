@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FILTERS } from "./data/itemData";
+import { FILTERS } from "../itemData";
 
 function SideFilters({ queries, setFilter }) {
   const { category, series, sizeTypes, sizes, prices, releaseYears } = queries;
@@ -207,8 +207,7 @@ const Subcategory = styled.div`
   font-weight: 400;
 `;
 
-const SubcategoryBox = styled.input.attrs(({ id, type }) => ({
-  id,
+const SubcategoryBox = styled.input.attrs(({ type }) => ({
   type: type || "checkbox",
 }))`
   position: absolute;
@@ -219,9 +218,7 @@ const SubcategoryBox = styled.input.attrs(({ id, type }) => ({
   cursor: pointer;
 `;
 
-const SubcategoryLabel = styled.label.attrs(({ htmlFor }) => ({
-  htmlFor,
-}))`
+const SubcategoryLabel = styled.label`
   position: relative;
   display: inline-block;
   max-width: 100%;
@@ -334,8 +331,7 @@ const CheckboxForm = styled.div`
   }
 `;
 
-const CheckBox = styled.input.attrs(({ id, type }) => ({
-  id,
+const CheckBox = styled.input.attrs(({ type }) => ({
   type: type || "checkbox",
 }))`
   position: absolute;
@@ -351,7 +347,7 @@ const CheckBox = styled.input.attrs(({ id, type }) => ({
   }
 `;
 
-const CheckBoxLabel = styled.label.attrs(({ htmlFor }) => ({ htmlFor }))`
+const CheckBoxLabel = styled.label`
   position: relative;
   display: block;
   max-width: 100%;

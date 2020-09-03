@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ITEM_DESC } from "./data/itemData";
+import { ITEM_DESC } from "../../itemData";
 
 function HeadPoster({ category, series }) {
   return (
