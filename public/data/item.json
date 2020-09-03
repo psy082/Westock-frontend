@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": 5,
+      "name": "adidas Yeezy 700 V3 Arzareth",
+      "price": 345,
+      "sold": 1541,
+      "img": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Satin-Snake-Chicago-W-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1597678279"
+    },
+    {
+      "id": 6,
+      "name": "adidas Yeezy Boost 350 V2 Israfil",
+      "price": 259,
+      "sold": 1410,
+      "img": "https://stockx.imgix.net/Air-Jordan-2-Retro-QF-White-Varsity-Red-2010-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1559769586"
+    },
+    {
+      "id": 7,
+      "name": "Jordan 12 Retro Indigo",
+      "price": 213,
+      "sold": 1336,
+      "img": "https://stockx.imgix.net/Air-Jordan-3-Retro-Quai54-2018-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1538080256"
+    },
+    {
+      "id": 8,
+      "name": "Jordan 5 Retro Alternate Bel-Air",
+      "price": 205,
+      "sold": 1939,
+      "img": "https://stockx.imgix.net/Air-Jordan-4-Retro-Union-Guava-Ice.png?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1596306060"
+    },
+    {
+      "id": 9,
+      "name": "Jordan 12 Retro Black University Gold",
+      "price": 215,
+      "sold": 798,
+      "img": "https://stockx.imgix.net/Air-Jordan-12-Retro-Black-University-Gold-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1597154086"
+    }
+  ]
+}
