@@ -1,26 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Sneakers from "./Components/MainNav/Sneakers";
-import Streetwear from "./Components/MainNav/Streetwear";
-import Collectibles from "./Components/MainNav/Collectibles.";
-import Handbags from "./Components/MainNav/Handbags";
-import Watches from "./Components/MainNav/Watches";
-
-const tabTitle = [
-  "Sneakers",
-  "Streetwear",
-  "Collectibles",
-  "Handbags",
-  "Watches",
-];
-
-const tab = {
-  0: <Sneakers />,
-  1: <Streetwear />,
-  2: <Collectibles />,
-  3: <Handbags />,
-  4: <Watches />,
-};
+import Banner from "./Components/Banner";
 
 export default class MainNav extends Component {
   constructor(props) {
@@ -35,7 +15,7 @@ export default class MainNav extends Component {
       <>
         <Nav>
           <List>
-            {tabTitle.map((str, idx) => {
+            {this.props.tabTitle.map((str, idx) => {
               return (
                 <Tab
                   active={this.props.activeTab === idx}
@@ -48,7 +28,7 @@ export default class MainNav extends Component {
             })}
           </List>
         </Nav>
-        {tab[this.props.activeTab]}
+        <Banner activeTab={this.props.activeTab} />
       </>
     );
   }

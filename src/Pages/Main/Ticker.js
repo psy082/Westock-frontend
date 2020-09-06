@@ -10,7 +10,7 @@ export default class Ticker extends Component {
   }
 
   tickerFetch = () => {
-    fetch("http://localhost:3000/data/ticker.json")
+    fetch("/data/ticker.json")
       .then((res) => res.json())
       .then((res) => this.setState({ tickerData: res.data }));
   };
@@ -27,20 +27,11 @@ export default class Ticker extends Component {
             <Symbol key={el.id}>
               <ClickZone>
                 <Item>{el.title}</Item>
-                <Price>
-                  {el.isup ? (
-                    <PriceUp>${el.price}</PriceUp>
-                  ) : (
-                    <PriceDown>${el.price}</PriceDown>
-                  )}
-                </Price>
-                <Status>
-                  {el.isup ? (
-                    <StatusUp>▲</StatusUp>
-                  ) : (
-                    <StatusDown>▼</StatusDown>
-                  )}
-                </Status>
+                {el.isup ? (
+                  <PriceUp>${el.price}▲</PriceUp>
+                ) : (
+                  <PriceDown>${el.price}▼</PriceDown>
+                )}
               </ClickZone>
             </Symbol>
           );
@@ -74,22 +65,10 @@ const Item = styled.span`
   margin-right: 6px;
 `;
 
-const Price = styled.span``;
-
 const PriceUp = styled.span`
   color: #08a05c;
 `;
 
 const PriceDown = styled.span`
-  color: #ff5a5f;
-`;
-
-const Status = styled.span``;
-
-const StatusUp = styled.span`
-  color: #08a05c;
-`;
-
-const StatusDown = styled.span`
   color: #ff5a5f;
 `;

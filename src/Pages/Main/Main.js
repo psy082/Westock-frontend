@@ -4,6 +4,14 @@ import MainNav from "./MainNav";
 import Contents from "./Contents";
 import Ticker from "./Ticker";
 
+const tabTitle = [
+  "Sneakers",
+  "Streetwear",
+  "Collectibles",
+  "Handbags",
+  "Watches",
+];
+
 export default class Main extends Component {
   constructor() {
     super();
@@ -17,10 +25,11 @@ export default class Main extends Component {
   render() {
     return (
       <>
-        <Header activeTab={this.state.activeTab} />
+        <Header activeTab={this.state.activeTab} tabTitle={tabTitle} />
         <MainNav
           menuTabHandler={this.menuTabHandler}
           activeTab={this.state.activeTab}
+          tabTitle={tabTitle}
         />
         <Contents />
         <Ticker />

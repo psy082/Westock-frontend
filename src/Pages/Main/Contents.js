@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import Tooltip from "./Components/Tooltip";
 
 export default class Contents extends Component {
   constructor() {
@@ -10,10 +11,10 @@ export default class Contents extends Component {
     };
   }
   contentsFetch = () => {
-    fetch("http://localhost:3000/data/jordan.json")
+    fetch("/data/jordan.json")
       .then((res) => res.json())
       .then((res) => this.setState({ jordanData: res.data }));
-    fetch("http://localhost:3000/data/item.json")
+    fetch("/data/item.json")
       .then((res) => res.json())
       .then((res) => this.setState({ itemData: res.data }));
   };
@@ -42,7 +43,13 @@ export default class Contents extends Component {
           </JordanSeries>
         </ContentsContainer>
         <Title>
-          <Header>Most Popular</Header>
+          <Header>
+            Most Popular
+            <Tooltip
+              label="The 'Most Popular' products are a curated collection of our best
+            selling items."
+            />
+          </Header>
           <SeeAll>See All</SeeAll>
         </Title>
         <ItemContainer>
@@ -63,7 +70,10 @@ export default class Contents extends Component {
           })}
         </ItemContainer>
         <Title>
-          <Header>New Lowest Ask</Header>
+          <Header>
+            New Lowest Ask
+            <Tooltip label="The 'New Lowest Asks' are the products with the most recently listed Lowest Asks. These are the products that people are ready to sell." />
+          </Header>
           <SeeAll>See All</SeeAll>
         </Title>
         <ItemContainer>
@@ -84,7 +94,10 @@ export default class Contents extends Component {
           })}
         </ItemContainer>
         <Title>
-          <Header>New Highest Bids</Header>
+          <Header>
+            New Highest Bids
+            <Tooltip label="The 'New Highest Bids' are the products with the most recently listed Highest Bids. These are the products that people are ready to buy." />
+          </Header>
           <SeeAll>See All</SeeAll>
         </Title>
         <ItemContainer>
