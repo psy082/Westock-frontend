@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { API_LOGIN } from "../../../../../config";
 import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
 import styled from "styled-components";
 
@@ -13,7 +14,7 @@ class LoginContent extends Component {
   };
 
   handleOnclick = (e) => {
-    fetch("http://18.221.22.97:8000/account/login", {
+    fetch(`${API_LOGIN}`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
@@ -22,10 +23,10 @@ class LoginContent extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.message == "SUCCESS") {
+        if (response.message === "SUCCESS") {
           alert("로그인 성공");
           console.log(response);
-          sessionStorage.setItem("access_token", response.token);
+          sessionStorage.setItem("ACCESS_TOKEN", response.token);
           this.props.history.push("/");
         } else {
           alert("로그인 실패");

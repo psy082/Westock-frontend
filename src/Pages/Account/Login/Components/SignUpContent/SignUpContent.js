@@ -5,8 +5,8 @@ import styled from "styled-components";
 
 class SignUpContent extends Component {
   state = {
-    firstname: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     checked: false,
@@ -14,12 +14,12 @@ class SignUpContent extends Component {
 
   handleOnclick = () => {
     this.setState({ checked: !this.state.checked });
-    console.log(this.state.firstname, this.state.lastname);
+    console.log(this.state.first_name, this.state.last_name);
     fetch(`${API_REGISTER}`, {
       method: "POST",
       body: JSON.stringify({
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
         email: this.state.email,
         password: this.state.password,
       }),
@@ -28,7 +28,7 @@ class SignUpContent extends Component {
       .then((response) => {
         if (response.message === "SUCCESS") {
           alert("회원가입 성공");
-          this.props.history.push("/account");
+          this.props.history.push("/");
         } else {
           alert("회원가입 실패");
         }
