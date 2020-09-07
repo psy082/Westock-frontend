@@ -1,0 +1,31 @@
+{
+  "data": [{
+      "id": 1,
+      "title": "Jordan 1",
+      "img": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Satin-Snake-Chicago-W-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1597678279",
+      "jordan": true,
+      "jordanimg": "https://stockx-assets.imgix.net/png/brand-tiles/img-jordan.png?auto=compress,format"
+    },
+    {
+      "id": 2,
+      "title": "Jordan 2",
+      "img": "https://stockx.imgix.net/Air-Jordan-2-Retro-QF-White-Varsity-Red-2010-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1559769586",
+      "jordan": true,
+      "jordanimg": "https://stockx-assets.imgix.net/png/brand-tiles/img-jordan.png?auto=compress,format"
+    },
+    {
+      "id": 3,
+      "title": "Jordan 3",
+      "img": "https://stockx.imgix.net/Air-Jordan-3-Retro-Quai54-2018-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1538080256",
+      "jordan": true,
+      "jordanimg": "https://stockx-assets.imgix.net/png/brand-tiles/img-jordan.png?auto=compress,format"
+    },
+    {
+      "id": 4,
+      "title": "Jordan 4",
+      "img": "https://stockx.imgix.net/Air-Jordan-4-Retro-Union-Guava-Ice.png?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1596306060",
+      "jordan": true,
+      "jordanimg": "https://stockx-assets.imgix.net/png/brand-tiles/img-jordan.png?auto=compress,format"
+    }
+  ]
+}
