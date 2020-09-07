@@ -5,7 +5,11 @@ import SizePopUp from "./SizePopUp";
 import ScrollSlider from "./ScrollSlider";
 import ScrollSliderItem from "./ScrollSliderItem";
 import ChartSignUp from "./ChartSignUp";
-import FollowSignUp from "./FollowSignUp";
+import FollowExplanation from "./FollowExplanation";
+import FollowPopUp from "./FollowPopUp";
+import ArrowUp from "./Components/ArrowUp";
+import ArrowDown from "./Components/ArrowDown";
+import PlusSign from "./Components/PlusSign";
 
 function ItemDetail() {
   const [isActive, setIsActive] = useState(false);
@@ -14,6 +18,9 @@ function ItemDetail() {
   const [details, setDetails] = useState({});
   const [aroundView, setAroundView] = useState([]);
   const [scrollIndex, setScrollIndex] = useState(0);
+  const [followList, setFollowList] = useState([]);
+  const [isFollowPopUpActive, setIsFollowPopUpActive] = useState(false);
+  const [followExplanation, setFollowExplanation] = useState(true);
 
   const handleSize = () => {
     setIsActive(!isActive);
@@ -52,15 +59,9 @@ function ItemDetail() {
   };
 
   const arrow = () => {
-    if (
-      sizeList[selectedSize] &&
-      sizeList[selectedSize].difference.includes("-")
-    ) {
+    if (sizeList[selectedSize]?.difference.includes("-")) {
       return "#ff5a5f";
-    } else if (
-      sizeList[selectedSize] &&
-      sizeList[selectedSize].difference.includes("+")
-    ) {
+    } else if (sizeList[selectedSize]?.difference.includes("+")) {
       return "#08a05c";
     }
   };
@@ -77,6 +78,19 @@ function ItemDetail() {
     setScrollIndex(idx);
   };
 
+  const handleFollowPopUp = () => {
+    setIsFollowPopUpActive(!isFollowPopUpActive);
+  };
+
+  const sizesToFollow = (idx) => {
+    followList.includes(idx)
+      ? setFollowList(followList.filter((el) => el !== idx))
+      : setFollowList([...followList, idx]);
+  };
+
+  const handleFollowExp = () => {
+    setFollowExplanation(false);
+  };
   return (
     <>
       <DetailWrapper>
@@ -93,58 +107,30 @@ function ItemDetail() {
           </Footage>
           <Buttons>
             <ButtonStyle>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="arrow-up"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
-                ></path>
-              </svg>
-              <button>share</button>
+              <PlusSign />
+              <DropDownBtn>share</DropDownBtn>
             </ButtonStyle>
             <ButtonStyle>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="plus"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                ></path>
-              </svg>
-              <button>portfolio</button>
+              <PlusSign />
+              <DropDownBtn>portfolio</DropDownBtn>
             </ButtonStyle>
             <ButtonStyle>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="plus"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path
-                  fill="currentColor"
-                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                ></path>
-              </svg>
-
-              <button>follow</button>
+              <ArrowUp />
+              <DropDownBtn onClick={handleFollowPopUp}>follow</DropDownBtn>
+              <FollowExplanation
+                followExplanation={followExplanation}
+                isPopUpActive={isFollowPopUpActive}
+                handleFollowExp={handleFollowExp}
+              />
+              <FollowPopUp
+                sizeList={sizeList}
+                followList={followList}
+                sizesToFollow={sizesToFollow}
+                isPopUpActive={isFollowPopUpActive}
+                followExplanation={followExplanation}
+                handleFollowPopUp={handleFollowPopUp}
+              />
             </ButtonStyle>
-            {/* <FollowSignUp /> */}
           </Buttons>
         </Header>
       </DetailWrapper>
@@ -156,7 +142,7 @@ function ItemDetail() {
               <SubHeader>
                 <GreyText>
                   condition:
-                  <Condition>new</Condition>
+                  <Condition color="#08a05c">new</Condition>
                 </GreyText>
                 <DividerPipe>|</DividerPipe>
                 <GreyText>
@@ -165,7 +151,7 @@ function ItemDetail() {
                 </GreyText>
                 <DividerPipe>|</DividerPipe>
                 <div>
-                  <Condition>100% authentic</Condition>
+                  <Condition color="#08a05c">100% authentic</Condition>
                 </div>
               </SubHeader>
             </div>
@@ -178,20 +164,7 @@ function ItemDetail() {
                   {sizeList[selectedSize] && sizeList[selectedSize]["size"]}
                 </span>
                 <span className="arrowDown">
-                  <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    data-prefix="fas"
-                    data-icon="chevron-down"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
-                    ></path>
-                  </svg>
+                  <ArrowDown />
                 </span>
               </SizeSelect>
               <SizePopUp
@@ -309,7 +282,7 @@ function ItemDetail() {
             <li className="weekHighLow">
               <img
                 src="https://stockx-assets.imgix.net/svg/icons/gauge.svg?auto=compress,format"
-                alt=""
+                alt="gauge"
               />
               <span>52 Week</span>
               <div className="valueContainer">
@@ -320,7 +293,7 @@ function ItemDetail() {
             <li className="tradeRange">
               <img
                 src="https://stockx-assets.imgix.net/svg/icons/chart.svg?auto=compress,format"
-                alt="chart"
+                alt="bar chart"
               />
               <span>Trade Range (12 Mos.)</span>
               <div className="valueContainer">
@@ -362,7 +335,7 @@ function ItemDetail() {
                 <HistoryHeader>
                   <img
                     src="https://stockx-assets.imgix.net/svg/icons/gauge.svg?auto=compress,format"
-                    alt=""
+                    alt="gauge"
                   />
                   12 month historical
                 </HistoryHeader>
@@ -385,7 +358,7 @@ function ItemDetail() {
 export default ItemDetail;
 
 const DetailWrapper = styled.div`
-  ${(props) => props.theme.flexColumnCenter};
+  ${({ theme }) => theme.flexColumnCenter};
   width: 100vw;
 
   .productGradient {
@@ -395,10 +368,10 @@ const DetailWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  ${(props) => props.theme.flexRowCenter};
+  ${({ theme }) => theme.flexRowCenter};
   justify-content: space-between;
-  padding: 16px;
   width: 1170px;
+  padding: 16px;
 `;
 
 const Buttons = styled.div`
@@ -407,9 +380,9 @@ const Buttons = styled.div`
 
 const ButtonStyle = styled.div`
   display: flex;
+  padding: 4px 12px;
   border: 1px solid;
   border-radius: 20px;
-  padding: 4px 12px;
 
   &:not(:last-child) {
     margin-right: 5px;
@@ -419,12 +392,12 @@ const ButtonStyle = styled.div`
     width: 0.875em;
     margin-right: 4px;
   }
+`;
 
-  button {
-    text-transform: uppercase;
-    font-size: 13px;
-    font-weight: 700;
-  }
+const DropDownBtn = styled.button`
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
 `;
 
 const Footage = styled.div`
@@ -435,23 +408,23 @@ const Footage = styled.div`
     display: flex;
 
     li {
-      text-transform: uppercase;
+      color: ${({ theme }) => theme.colors.footage};
       font-size: 12px;
-      color: ${(props) => props.theme.colors.footage};
+      text-transform: uppercase;
 
       &:not(:first-child)::before {
-        padding: 0 5px;
         content: "/";
+        padding: 0 5px;
       }
     }
   }
 `;
 
 const ProductContent = styled.div`
-  ${(props) => props.theme.flexColumnCenter}
+  ${({ theme }) => theme.flexColumnCenter}
   .contentContainer {
-    padding: 22px 15px;
     width: 1170px;
+    padding: 22px 15px;
   }
 `;
 
@@ -477,8 +450,8 @@ const GreyText = styled.div`
 `;
 
 const Condition = styled.span`
-  color: ${(props) => props.color || props.theme.colors.green};
   font-weight: 700;
+  color: ${({ color, theme }) => color || theme.colors.green};
 `;
 
 const DividerPipe = styled.span`
@@ -486,14 +459,14 @@ const DividerPipe = styled.span`
 `;
 
 const ProductSummary = styled.div`
-  margin-top: 40px;
   display: flex;
+  margin-top: 40px;
 `;
 
 const Options = styled.div`
+  margin-bottom: 35px;
   padding-right: 25px;
   border-right: 1px solid #ccc;
-  margin-bottom: 35px;
 `;
 
 const SizeSelect = styled.div`
@@ -502,15 +475,15 @@ const SizeSelect = styled.div`
 
   .size {
     display: flex;
+    color: ${({ theme }) => theme.colors.textBlack};
     font-size: 30px;
     font-weight: 500;
     text-transform: caplitalize;
     text-align: left;
-    color: ${(props) => props.theme.colors.textBlack};
   }
 
   .arrowDown {
-    ${(props) => props.theme.flexCenter};
+    ${({ theme }) => theme.flexCenter};
 
     svg {
       width: 0.875em;
@@ -526,11 +499,11 @@ const LastSaleBlock = styled.div`
   margin-top: 12px;
 
   .lastSale {
-    ${(props) => props.theme.flexCenter};
+    ${({ theme }) => theme.flexCenter};
   }
 
   h3 {
-    ${(props) => props.theme.flexCenter};
+    ${({ theme }) => theme.flexCenter};
     color: #999999;
     font-size: 16px;
     font-weight: 700;
@@ -538,35 +511,35 @@ const LastSaleBlock = styled.div`
 `;
 
 const FlexCenter = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
 `;
 
 const LastSaleSize = styled.span`
+  display: ${({ display }) => display || "block"};
   font-size: 15px;
   font-weight: 600;
   text-transform: capitalize;
   cursor: pointer;
-  display: ${(props) => props.display || "block"};
 `;
 
 const SaleSizeDivider = styled.div`
-  border-left: 1px solid #999;
-  margin: 5px 10px;
+  display: ${({ display }) => display || "block"};
   height: 12px;
-  display: ${(props) => props.display || "block"};
+  margin: 5px 10px;
+  border-left: 1px solid #999;
 `;
 
 const BidBtn = styled.div`
-  ${(props) => props.theme.flexColumnCenter};
+  ${({ theme }) => theme.flexColumnCenter};
   padding: 0 20px;
 
   button {
     display: flex;
-    border-radius: 5px;
-    background-color: ${(props) => props.bgColor || props.theme.colors.green};
-    border-bottom: 4px solid
-      ${(props) => props.bgColor || props.theme.colors.green};
     padding: 13px 17px 5px;
+    border-radius: 5px;
+    border-bottom: 4px solid
+      ${({ bgColor, theme }) => bgColor || theme.colors.green};
+    background-color: ${({ bgColor, theme }) => bgColor || theme.colors.green};
     transition: all 0.2s ease;
 
     &:hover {
@@ -577,57 +550,57 @@ const BidBtn = styled.div`
 `;
 
 const Stats = styled.div`
-  ${(props) => props.theme.flexColumnCenter};
+  ${({ theme }) => theme.flexColumnCenter};
+  color: #fff;
   font-weight: 500;
   font-size: 30px;
   line-height: 1;
-  color: #fff;
   cursor: pointer;
 `;
 
 const BtnTitle = styled.span`
-  ${(props) => props.theme.flexColumnCenter};
+  ${({ theme }) => theme.flexColumnCenter};
+  color: #fff;
   font-weight: 600;
   font-size: 28px;
-  color: #fff;
 `;
 
 const BtnSubtitle = styled.span`
-  color: ${(props) => props.color || "#c6e6c2"};
+  color: ${({ color }) => color || "#c6e6c2"};
   font-size: 18px;
 `;
 
 const BtnDivider = styled.div`
-  border-left: 1px solid ${(props) => props.color || "#348a28"};
-  margin: 0 18px;
   height: 55px;
+  margin: 0 18px;
+  border-left: 1px solid ${({ color }) => color || "#348a28"};
 `;
 
 const SaleValue = styled.div`
+  margin: 0 5px 0 10px;
   font-size: 30px;
   font-weight: 500;
-  margin: 0 5px 0 10px;
 `;
 
 const FlexRowCenter = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
 `;
 
 const Arrow = styled.span`
   border-color: transparent transparent
-    ${(props) => props.arrowColor || props.theme.colors.green};
+    ${({ arrowColor, theme }) => arrowColor || theme.colors.green};
   border-width: 0 7px 13.9px;
   border-style: solid;
-  transform: ${(props) => props.rotate || "rotate(0deg)"};
+  transform: ${({ rotate }) => rotate || "rotate(0deg)"};
 `;
 
 const Difference = styled.div`
-  color: ${(props) => props.color || "#999"};
+  color: ${({ color }) => color || "#999"};
   font-weight: 600;
 `;
 
 const Percentage = styled.div`
-  color: ${(props) => props.color || "#999"};
+  color: ${({ color }) => color || "#999"};
   font-weight: 600;
 `;
 
@@ -637,7 +610,7 @@ const ProductMedia = styled.div`
 `;
 
 const AroundView = styled.div`
-  ${(props) => props.theme.flexColumnCenter};
+  ${({ theme }) => theme.flexColumnCenter};
   margin-bottom: 60px;
 `;
 
@@ -647,7 +620,7 @@ const ProductInfo = styled.div`
 `;
 
 const DetailColumn = styled.div`
-  ${(props) => props.theme.flexColumn};
+  ${({ theme }) => theme.flexColumn};
   justify-content: flex-start;
   width: 30%;
   margin-right: 5%;
@@ -656,21 +629,21 @@ const DetailColumn = styled.div`
 const Detail = styled.div`
   display: flex;
   margin-bottom: 10px;
-  color: ${(props) => props.theme.colors.textBlack};
+  color: ${({ theme }) => theme.colors.textBlack};
 `;
 
 const DetailTitle = styled.div`
-  text-transform: uppercase;
   font: 400 20px "Bebas Neue", cursive;
+  text-transform: uppercase;
   letter-spacing: 1.2px;
 `;
 
 const DetailContent = styled.div`
-  font-size: 20px;
   text-transform: uppercase;
   font: 100 20px "Bebas Neue", cursive;
-  letter-spacing: 1.2px;
   white-space: nowrap;
+  font-size: 20px;
+  letter-spacing: 1.2px;
   text-overflow: ellipsis;
   overflow: hidden;
 `;
@@ -685,25 +658,25 @@ const Description = styled.div`
   }
 
   button {
-    color: ${(props) => props.theme.colors.green};
+    padding: 0;
     font-size: 18px;
     font-weight: 700;
-    padding: 0;
+    color: ${({ theme }) => theme.colors.green};
   }
 `;
 
 const MarketSummary = styled.div`
-  ${(props) => props.theme.flexCenter}
+  ${({ theme }) => theme.flexCenter}
   width: 100%;
-  margin-top: 5px;
   min-height: 100px;
-  background-color: ${(props) => props.theme.colors.mediumGrey};
+  margin-top: 5px;
+  background-color: ${({ theme }) => theme.colors.mediumGrey};
 
   ul {
-    width: 1170px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    width: 1170px;
 
     li {
       display: flex;
@@ -723,10 +696,10 @@ const MarketSummary = styled.div`
 `;
 
 const RelatedProducts = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
   width: 100%;
-  margin-bottom: 20px;
   border-top: 1px solid #cecece;
+  margin-bottom: 20px;
 `;
 
 const Container = styled.div`
@@ -735,22 +708,22 @@ const Container = styled.div`
 `;
 
 const Banner = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
 
   div {
     position: relative;
     top: -16px;
-    color: #fff;
-    text-transform: uppercase;
-    background-color: ${(props) => props.theme.colors.footageHover};
-    padding: 12px 20px;
     margin-top: 11px;
+    padding: 12px 20px;
+    color: #fff;
+    background-color: ${({ theme }) => theme.colors.footageHover};
+    text-transform: uppercase;
 
     &::before {
+      content: "";
       position: absolute;
       left: -5px;
       top: 0;
-      content: "";
       border-color: transparent transparent black;
       border-width: 0 0 5px 5px;
       border-style: solid;
@@ -759,7 +732,7 @@ const Banner = styled.div`
 `;
 
 const LatestSales = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
   border-top: 1px solid #cecece;
   width: 100%;
 `;
@@ -771,20 +744,20 @@ const GraphWrapper = styled.div`
 `;
 
 const History = styled.div`
-  ${(props) => props.theme.flexColumnCenter};
-  text-align: center;
+  ${({ theme }) => theme.flexColumnCenter};
   width: 33.33333333%;
   padding: 0 15px;
+  text-align: center;
 `;
 
 const HistoryHeader = styled.div`
-  ${(props) => props.theme.flexRowCenter};
-  line-height: 64px;
+  ${({ theme }) => theme.flexRowCenter};
+  width: 100%;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  width: 100%;
+  line-height: 64px;
 
   img {
     width: 18px;
@@ -792,28 +765,28 @@ const HistoryHeader = styled.div`
 `;
 
 const HistoryTitle = styled.div`
-  padding-top: 30px;
   width: 100%;
+  border-top: 2px solid #ddd;
+  padding-top: 30px;
   font-size: 26px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border-top: 2px solid #ddd;
 `;
 
 const HistorySubTitle = styled.div`
+  margin-bottom:8px;
+  color: #666;
   font-size:14px
   font-weight:600;
   text-transform: uppercase;
-  color: #666;
-  margin-bottom:8px;
   
 `;
 
 const HistoryNumber = styled.div`
+  padding-bottom: 22px;
+  color: ${({ color, theme }) => color || theme.colors.green};
   font-size: 36px;
   font-weight: 600;
   text-transform: uppercase;
-  color: ${(props) => props.color || props.theme.colors.green};
-  padding-bottom: 22px;
 `;
