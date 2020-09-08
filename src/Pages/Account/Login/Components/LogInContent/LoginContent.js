@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { API_LOGIN } from "../../../../../config";
 import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
 import styled from "styled-components";
@@ -10,7 +11,7 @@ class LoginContent extends Component {
   };
 
   handleOnChange = (e) => {
-    this.setState = { [e.target.name]: e.target.value };
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleOnclick = (e) => {
@@ -23,10 +24,10 @@ class LoginContent extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.message === "SUCCESS") {
+        if (response.ACCESS_TOKEN) {
           alert("로그인 성공");
           console.log(response);
-          sessionStorage.setItem("ACCESS_TOKEN", response.token);
+          sessionStorage.setItem("ACCESS_TOKEN", response.ACCESS_TOKEN);
           this.props.history.push("/");
         } else {
           alert("로그인 실패");
@@ -35,6 +36,7 @@ class LoginContent extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <>
         <LoginForm>
@@ -50,6 +52,7 @@ class LoginContent extends Component {
               <PasswordLoginInput
                 onChange={this.handleOnChange}
                 name="password"
+                type="password"
                 placeholder="Password"
               />
               <PasswordToggle>
@@ -159,4 +162,4 @@ const P = styled.p`
   font-weight: bold;
 `;
 
-export default LoginContent;
+export default withRouter(LoginContent);

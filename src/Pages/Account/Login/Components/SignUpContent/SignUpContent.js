@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { API_REGISTER } from "../../../../../config";
 import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
 import styled from "styled-components";
@@ -10,6 +11,10 @@ class SignUpContent extends Component {
     email: "",
     password: "",
     checked: false,
+  };
+
+  handleOnChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleOnclick = () => {
@@ -26,9 +31,9 @@ class SignUpContent extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.message === "SUCCESS") {
+        if (response.MESSAGE === "SUCCESS") {
           alert("회원가입 성공");
-          this.props.history.push("/");
+          this.props.history.push("/account/login");
         } else {
           alert("회원가입 실패");
         }
@@ -43,14 +48,14 @@ class SignUpContent extends Component {
           <FormRow>
             <Input
               onChange={this.handleOnChange}
-              name="firstname"
+              name="first_name"
               placeholder="First Name"
             />
           </FormRow>
           <FormRow>
             <Input
               onChange={this.handleOnChange}
-              name="lastname"
+              name="last_name"
               placeholder="Last Name"
             />
           </FormRow>
@@ -85,10 +90,7 @@ class SignUpContent extends Component {
         </Div>
         <TermsWrapper>
           <TermsCheckBox />
-          <CheckMark
-            onClick={this.handleOnclick}
-            checked={this.state.checked}
-          />
+          <CheckMark checked={this.state.checked} />
           <TermsText>
             By signing up, you agree to the&nbsp;<Span>Terms of Service</Span>
             &nbsp; and<br></br>
@@ -237,4 +239,4 @@ const ButtonSignUp = styled.button`
   letter-spacing: 0.5px;
 `;
 
-export default SignUpContent;
+export default withRouter(SignUpContent);

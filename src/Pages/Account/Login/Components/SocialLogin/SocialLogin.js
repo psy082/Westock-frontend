@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { JS_KEY } from "../../../../../config";
+import { API_KAKAO_LOGIN } from "../../../../../config";
 import SocialIconGoogle from "../SocialLoginIcon/SocialIconGoogle";
 import SocialIconGithub from "../SocialLoginIcon/SocialIconGithub";
 import SocialIconFacebook from "../SocialLoginIcon/SocialIconFacebook";
@@ -12,11 +13,11 @@ class SocialLogin extends Component {
     window.Kakao.Auth.login({
       success: (authObj) => {
         console.log(authObj);
-        fetch("http://192.168.0.10:8000/users/sign-in/kakao", {
+        fetch(`${API_KAKAO_LOGIN}`, {
           method: "POST",
-          body: JSON.stringify({
-            access_token: authObj.access_token,
-          }),
+          headers: {
+            Authorization: authObj.access_token,
+          },
         })
           .then((res) => res.json())
           .then((res) => {
