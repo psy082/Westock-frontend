@@ -1,0 +1,90 @@
+{
+  "message": {
+    "Pagination": {
+      "limit": 5,
+      "page": 1,
+      "product_total": 39,
+      "last_page": 8,
+      "current_page": 1,
+      "next_page": 2,
+      "previous_page": null
+    },
+    "Product": [
+      {
+        "product_id": 1,
+        "product_name": "Jordan 1 Mid Light Smoke Grey",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Mid-Light-Smoke-Grey-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1596134320",
+        "product_ask_price": 201,
+        "most_popular": 20,
+        "average_price": 521,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 300,
+        "last_sale": 207,
+        "lowest_ask": 201,
+        "highest_bid": 987,
+        "release_date": "2020-06-09"
+      },
+      {
+        "product_id": 2,
+        "product_name": "Jordan 1 Mid Chicago Toe",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Mid-Chicago-Toe-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1596134467",
+        "product_ask_price": 220,
+        "most_popular": 20,
+        "average_price": 462,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 300,
+        "last_sale": 575,
+        "lowest_ask": 220,
+        "highest_bid": 810,
+        "release_date": "2020-04-01"
+      },
+      {
+        "product_id": 3,
+        "product_name": "Jordan 1 Retro High Light Smoke Grey",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Light-Smoke-Grey-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1594243826",
+        "product_ask_price": 247,
+        "most_popular": 20,
+        "average_price": 647,
+        "total_sold": 20,
+        "volatility": "0.9",
+        "price_premium": 200,
+        "last_sale": 797,
+        "lowest_ask": 247,
+        "highest_bid": 978,
+        "release_date": "2020-07-11"
+      },
+      {
+        "product_id": 4,
+        "product_name": "Jordan 1 Retro High Royal Toe",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Black-Game-Royal-Toe-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1596211150",
+        "product_ask_price": 230,
+        "most_popular": 20,
+        "average_price": 632,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 200,
+        "last_sale": 915,
+        "lowest_ask": 230,
+        "highest_bid": 996,
+        "release_date": "2020-05-09"
+      },
+      {
+        "product_id": 5,
+        "product_name": "Jordan 1 Retro High CO Japan Neutral Grey (2020)",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-CO-Japan-Neutral-Grey-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1597154086",
+        "product_ask_price": 262,
+        "most_popular": 20,
+        "average_price": 709,
+        "total_sold": 20,
+        "volatility": "0.4",
+        "price_premium": 300,
+        "last_sale": 884,
+        "lowest_ask": 262,
+        "highest_bid": 929,
+        "release_date": "2020-08-07"
+      }
+    ]
+  }
+}

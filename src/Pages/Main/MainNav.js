@@ -1,42 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import Banner from "./Components/Banner";
 
-export default class MainNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTab: this.props.activeTab,
-    };
-  }
-
-  render() {
-    return (
-      <>
-        <Nav>
-          <List>
-            {this.props.tabTitle.map((str, idx) => {
-              return (
-                <Tab
-                  active={this.props.activeTab === idx}
-                  key={idx}
-                  onClick={() => this.props.menuTabHandler(idx)}
-                >
-                  {str}
-                </Tab>
-              );
-            })}
-          </List>
-        </Nav>
-        <Banner activeTab={this.props.activeTab} />
-      </>
-    );
-  }
-}
+const MainNav = ({ tabTitle, activeTab, menuTabHandler }) => {
+  return (
+    <>
+      <Nav>
+        <List>
+          {tabTitle.map((str, idx) => {
+            return (
+              <Tab
+                active={activeTab === idx}
+                key={idx}
+                onClick={() => menuTabHandler(idx)}
+              >
+                {str}
+              </Tab>
+            );
+          })}
+        </List>
+      </Nav>
+      <Banner activeTab={activeTab} />
+    </>
+  );
+};
 
 const Nav = styled.div`
-  display: flex;
-  justify-content: center;
+  ${(props) => props.theme.flexCenter};
 `;
 
 const List = styled.ul`
@@ -51,5 +41,9 @@ const List = styled.ul`
 const Tab = styled.li`
   height: 35px;
   cursor: pointer;
-  border-bottom: ${(props) => (props.active ? "5px solid black" : "none")};
+  border-bottom: ${(props) =>
+    props.active ? "5px solid black" : "5px solid white"};
+  transition: 0.2s;
 `;
+
+export default MainNav;

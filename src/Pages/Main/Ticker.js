@@ -1,28 +1,22 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
 
-export default class Ticker extends Component {
-  constructor() {
-    super();
-    this.state = {
-      tickerData: [],
-    };
-  }
-
-  tickerFetch = () => {
+const Ticker = () => {
+  const [tickerData, setTickerData] = useState([]);
+  const tickerFetch = () => {
     fetch("/data/ticker.json")
       .then((res) => res.json())
-      .then((res) => this.setState({ tickerData: res.data }));
+      .then((res) => setTickerData(res.data));
   };
 
-  componentDidMount = () => {
-    this.tickerFetch();
-  };
+  useEffect(() => {
+    tickerFetch();
+  }, []);
 
-  render() {
-    return (
-      <TickerContainer>
-        {this.state.tickerData.map((el) => {
+  return (
+    <TickerContainer>
+      <TickerText>
+        {tickerData.map((el) => {
           return (
             <Symbol key={el.id}>
               <ClickZone>
@@ -36,22 +30,42 @@ export default class Ticker extends Component {
             </Symbol>
           );
         })}
-      </TickerContainer>
-    );
-  }
-}
+      </TickerText>
+    </TickerContainer>
+  );
+};
 
-const TickerContainer = styled.marquee`
+const marquee = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+`;
+
+const TickerContainer = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 50px;
-  border-top: 1px solid white;
+  border-top: 1px solid ${(props) => props.theme.colors.white};
   line-height: 50px;
   font-size: 18px;
   font-weight: 600;
   background-color: #252525;
-  color: white;
+`;
+
+const TickerText = styled.div`
+  color: ${(props) => props.theme.colors.white};
+  animation-name: ${marquee};
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
 `;
 
 const Symbol = styled.span`
@@ -72,3 +86,5 @@ const PriceUp = styled.span`
 const PriceDown = styled.span`
   color: #ff5a5f;
 `;
+
+export default Ticker;

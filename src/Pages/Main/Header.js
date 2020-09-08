@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import Search from "./Components/Search";
 
@@ -10,21 +10,17 @@ const backgroundImg = {
   4: "url(https://stockx-assets.imgix.net/Core/watch_plain.png?auto=compress,format)",
 };
 
-export default class Header extends Component {
-  render() {
-    return (
-      <HeaderContainer backgroundImg={backgroundImg[this.props.activeTab]}>
-        <TitleWrapper>
-          <Title>Buy & Sell</Title>
-          <Title sub>
-            Authentic {this.props.tabTitle[this.props.activeTab]}
-          </Title>
-        </TitleWrapper>
-        <Search />
-      </HeaderContainer>
-    );
-  }
-}
+const Header = ({ activeTab, tabTitle }) => {
+  return (
+    <HeaderContainer backgroundImg={backgroundImg[activeTab]}>
+      <TitleWrapper>
+        <Title>Buy & Sell</Title>
+        <Title sub>Authentic {tabTitle[activeTab]}</Title>
+      </TitleWrapper>
+      <Search />
+    </HeaderContainer>
+  );
+};
 
 const HeaderContainer = styled.div`
   height: 520px;
@@ -35,6 +31,7 @@ const HeaderContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-image: ${(props) => props.backgroundImg};
+  transition: 0.2s;
 `;
 
 const TitleWrapper = styled.div`
@@ -49,6 +46,8 @@ const Title = styled.span`
   font-size: 68px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: white;
+  color: ${(props) => props.theme.colors.white};
   background-color: ${(props) => (props.sub ? "#010101" : "none")};
 `;
+
+export default Header;

@@ -1,194 +1,142 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
+import Items from "./Components/Items";
 import Tooltip from "./Components/Tooltip";
+import { API_MOST_POPULAR } from "./Components/Config";
+import { API_LOWEST_ASK } from "./Components/Config";
+import { API_HIGHEST_BID } from "./Components/Config";
 
-export default class Contents extends Component {
-  constructor() {
-    super();
-    this.state = {
-      jordanData: [],
-      itemData: [],
-    };
-  }
-  contentsFetch = () => {
-    fetch("/data/jordan.json")
+const Contents = () => {
+  const history = useHistory();
+  const [mostPopular, setMostPopular] = useState([]);
+  const [lowestAsk, setLowestAsk] = useState([]);
+  const [highestBid, setHighestBid] = useState([]);
+
+  const handleFetch = () => {
+    fetch(`${API_MOST_POPULAR}`)
       .then((res) => res.json())
-      .then((res) => this.setState({ jordanData: res.data }));
-    fetch("/data/item.json")
+      .then((res) => setMostPopular(res.message.Product));
+    fetch(`${API_LOWEST_ASK}`)
       .then((res) => res.json())
-      .then((res) => this.setState({ itemData: res.data }));
+      .then((res) => setLowestAsk(res.message.Product));
+    fetch(`${API_HIGHEST_BID}`)
+      .then((res) => res.json())
+      .then((res) => setHighestBid(res.message.Product));
   };
 
-  componentDidMount = () => {
-    this.contentsFetch();
+  const checkPopular = true;
+  const checkLowest = true;
+  const checkHighest = true;
+
+  const goToAll = (sort) => {
+    history.push(`/sneakers?sort=${sort}`);
   };
 
-  render() {
-    return (
-      <MainContainer>
-        <Title>
-          <Header>Jordan Series</Header>
-          <SeeAll>See All</SeeAll>
-        </Title>
-        <ContentsContainer>
-          <JordanSeries>
-            {this.state.jordanData.map((el) => {
+  useEffect(() => {
+    handleFetch();
+  }, []);
+
+  return (
+    <MainContainer>
+      <Title>
+        <Header>
+          Most Popular
+          <Tooltip
+            label="The 'Most Popular' products are a curated collection of our best
+            selling items."
+          />
+        </Header>
+        <SeeAll onClick={() => goToAll("most_popular")}>See All</SeeAll>
+      </Title>
+      <Items checkPopular={checkPopular} mostPopular={mostPopular} />
+      <Title>
+        <Header>
+          Lowest Ask
+          <Tooltip label="The 'Lowest Asks' are the products with listed Lowest Asks. These are the products that people are ready to sell." />
+        </Header>
+        <SeeAll onClick={() => goToAll("lowest_ask")}>See All</SeeAll>
+      </Title>
+      <Items checkLowest={checkLowest} lowestAsk={lowestAsk} />
+      <Title>
+        <Header>
+          Highest Bids
+          <Tooltip label="The 'Highest Bids' are the products with listed Highest Bids. These are the products that people are ready to buy." />
+        </Header>
+        <SeeAll onClick={() => goToAll("highest_bid")}>See All</SeeAll>
+      </Title>
+      <Items checkHighest={checkHighest} highestBid={highestBid} />
+      <GoToSneakers onClick={() => goToAll("most_popular")}>
+        Browse Thousands of Sneakers on our Live Marketplace
+      </GoToSneakers>
+      <BottomContainer>
+        <ArticleSection>
+          <Title bottom>
+            <Header>Latest News</Header>
+            <SeeAll>See All</SeeAll>
+          </Title>
+          <Article>
+            <ArticleTitle>Kobe's Impact on Sneaker Free Agency</ArticleTitle>
+            <ArticleDate>Hadjj Mare - 09/03/2020</ArticleDate>
+          </Article>
+          <Article>
+            <ArticleTitle>Win $2,500 on TikTok</ArticleTitle>
+            <ArticleDate>StockX - 09/02/2020</ArticleDate>
+          </Article>
+          <Article>
+            <ArticleTitle>The Drop List 8.31.2020</ArticleTitle>
+            <ArticleDate>Hadjj Mare - 09/01/2020</ArticleDate>
+          </Article>
+          <Article>
+            <ArticleTitle>
+              KAWS What Party Figures Shipping Guidelines
+            </ArticleTitle>
+            <ArticleDate>Drew - 09/01/2020</ArticleDate>
+          </Article>
+          <Article>
+            <ArticleTitle>
+              How to Follow StockX Bag Condition Guidelines
+            </ArticleTitle>
+            <ArticleDate>StockX - 08/31/2020</ArticleDate>
+          </Article>
+        </ArticleSection>
+        <CalendarSection>
+          <Title bottom>
+            <Header>Release Calendar</Header>
+            <SeeAll>See All</SeeAll>
+          </Title>
+          <ItemSection>
+            {mostPopular.map((el) => {
               return (
-                <Jordan key={el.id}>
-                  <JordanImage alt="" src={el.img} />
-                  <Brand alt="" src={el.jordanimg} />
-                </Jordan>
+                <ItemBox key={el.product_id}>
+                  <ItemHeader>
+                    <ReleaseDate>
+                      Sep <ReleaseDivider>|</ReleaseDivider> 4
+                    </ReleaseDate>
+                    <AddToCollection
+                      alt=""
+                      src="https://stockx-assets.imgix.net/svg/icons/collections/addCalendar.svg?auto=compress,format"
+                    />
+                  </ItemHeader>
+                  <ItemImg
+                    alt=""
+                    src="https://stockx-assets.imgix.net/media/New-Product-Placeholder-Default.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=0"
+                  />
+                  <ItemTitle>null</ItemTitle>
+                  <ItemStat>
+                    <DownArrow>▼</DownArrow>
+                    <LowestAskPrice>ASK: $0</LowestAskPrice>
+                  </ItemStat>
+                  <BidBtn>BID</BidBtn>
+                </ItemBox>
               );
             })}
-          </JordanSeries>
-        </ContentsContainer>
-        <Title>
-          <Header>
-            Most Popular
-            <Tooltip
-              label="The 'Most Popular' products are a curated collection of our best
-            selling items."
-            />
-          </Header>
-          <SeeAll>See All</SeeAll>
-        </Title>
-        <ItemContainer>
-          {this.state.itemData.map((el) => {
-            return (
-              <Item key={el.id}>
-                <ItemImageBox>
-                  <ItemImage alt="" src={el.img} />
-                </ItemImageBox>
-                <ItemInfo>
-                  <ItemName>{el.name}</ItemName>
-                  <LowestAsk>Lowest Ask</LowestAsk>
-                  <ItemPrice>${el.price}</ItemPrice>
-                  <Sold>{el.sold} Sold</Sold>
-                </ItemInfo>
-              </Item>
-            );
-          })}
-        </ItemContainer>
-        <Title>
-          <Header>
-            New Lowest Ask
-            <Tooltip label="The 'New Lowest Asks' are the products with the most recently listed Lowest Asks. These are the products that people are ready to sell." />
-          </Header>
-          <SeeAll>See All</SeeAll>
-        </Title>
-        <ItemContainer>
-          {this.state.itemData.map((el) => {
-            return (
-              <Item key={el.id}>
-                <ItemImageBox>
-                  <ItemImage alt="" src={el.img} />
-                </ItemImageBox>
-                <ItemInfo>
-                  <ItemName>{el.name}</ItemName>
-                  <LowestAsk>Lowest Ask</LowestAsk>
-                  <ItemPrice>${el.price}</ItemPrice>
-                  <RecentTime>9 Minutes Ago</RecentTime>
-                </ItemInfo>
-              </Item>
-            );
-          })}
-        </ItemContainer>
-        <Title>
-          <Header>
-            New Highest Bids
-            <Tooltip label="The 'New Highest Bids' are the products with the most recently listed Highest Bids. These are the products that people are ready to buy." />
-          </Header>
-          <SeeAll>See All</SeeAll>
-        </Title>
-        <ItemContainer>
-          {this.state.itemData.map((el) => {
-            return (
-              <Item key={el.id}>
-                <ItemImageBox>
-                  <ItemImage alt="" src={el.img} />
-                </ItemImageBox>
-                <ItemInfo>
-                  <ItemName>{el.name}</ItemName>
-                  <LowestAsk>Highest Bids</LowestAsk>
-                  <ItemPrice>${el.price}</ItemPrice>
-                  <RecentTime>9 Minutes Ago</RecentTime>
-                </ItemInfo>
-              </Item>
-            );
-          })}
-        </ItemContainer>
-        <GoToSneakers>
-          Browse Thousands of Sneakers on our Live Marketplace
-        </GoToSneakers>
-        <BottomContainer>
-          <ArticleSection>
-            <Title bottom>
-              <Header>Latest News</Header>
-              <SeeAll>See All</SeeAll>
-            </Title>
-            <Article>
-              <ArticleTitle>Kobe's Impact on Sneaker Free Agency</ArticleTitle>
-              <ArticleDate>Hadjj Mare - 09/03/2020</ArticleDate>
-            </Article>
-            <Article>
-              <ArticleTitle>Win $2,500 on TikTok</ArticleTitle>
-              <ArticleDate>StockX - 09/02/2020</ArticleDate>
-            </Article>
-            <Article>
-              <ArticleTitle>The Drop List 8.31.2020</ArticleTitle>
-              <ArticleDate>Hadjj Mare - 09/01/2020</ArticleDate>
-            </Article>
-            <Article>
-              <ArticleTitle>
-                KAWS What Party Figures Shipping Guidelines
-              </ArticleTitle>
-              <ArticleDate>Drew - 09/01/2020</ArticleDate>
-            </Article>
-            <Article>
-              <ArticleTitle>
-                How to Follow StockX Bag Condition Guidelines
-              </ArticleTitle>
-              <ArticleDate>StockX - 08/31/2020</ArticleDate>
-            </Article>
-          </ArticleSection>
-          <CalendarSection>
-            <Title bottom>
-              <Header>Release Calendar</Header>
-              <SeeAll>See All</SeeAll>
-            </Title>
-            <ItemSection>
-              {this.state.itemData.map((el) => {
-                return (
-                  <ItemBox key={el.id}>
-                    <ItemHeader>
-                      <ReleaseDate>
-                        Sep <ReleaseDivider>|</ReleaseDivider> 4
-                      </ReleaseDate>
-                      <AddToCollection
-                        alt=""
-                        src="https://stockx-assets.imgix.net/svg/icons/collections/addCalendar.svg?auto=compress,format"
-                      />
-                    </ItemHeader>
-                    <ItemImg
-                      alt=""
-                      src="https://stockx-assets.imgix.net/media/New-Product-Placeholder-Default.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=0"
-                    />
-                    <ItemTitle>Jordan 1 Retro High Tokyo Bio Hack</ItemTitle>
-                    <ItemStat>
-                      <DownArrow>▼</DownArrow>
-                      <LowestAskPrice>ASK: $298</LowestAskPrice>
-                    </ItemStat>
-                    <BidBtn>BID</BidBtn>
-                  </ItemBox>
-                );
-              })}
-            </ItemSection>
-          </CalendarSection>
-        </BottomContainer>
-      </MainContainer>
-    );
-  }
-}
+          </ItemSection>
+        </CalendarSection>
+      </BottomContainer>
+    </MainContainer>
+  );
+};
 
 const MainContainer = styled.div`
   width: 1170px;
@@ -196,10 +144,6 @@ const MainContainer = styled.div`
   letter-spacing: 0.7px;
   line-height: 1.3;
   text-align: center;
-`;
-
-const ContentsContainer = styled.div`
-  padding: 0 15px 0 15px;
 `;
 
 const Title = styled.div`
@@ -217,86 +161,8 @@ const Header = styled.span`
 const SeeAll = styled.span`
   margin-top: 2.5px;
   font-size: 16px;
-  color: #08a05c;
+  color: ${(props) => props.theme.colors.green};
   cursor: pointer;
-`;
-
-const JordanSeries = styled.ul`
-  display: flex;
-  margin: 0 -8px;
-`;
-
-const Jordan = styled.div`
-  height: 180px;
-  padding: 0 8px;
-`;
-
-const JordanImage = styled.img`
-  max-width: 100%;
-  height: 188.41px;
-  cursor: pointer;
-`;
-
-const Brand = styled.img`
-  position: relative;
-  top: -190px;
-  left: 35%;
-  width: 56px;
-  height: 56px;
-  cursor: pointer;
-`;
-
-const ItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 1170px;
-  padding: 0 15px 0 15px;
-`;
-
-const Item = styled.div`
-  max-width: 215px;
-  border: #fafafa 2px solid;
-  border-radius: 3px;
-  cursor: pointer;
-`;
-
-const ItemImageBox = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const ItemImage = styled.img`
-  width: 179px;
-`;
-
-const ItemInfo = styled.div`
-  background-color: #fafafa;
-  padding: 16px;
-  text-align: left;
-`;
-
-const ItemName = styled.div`
-  height: 38px;
-  margin-bottom: 6px;
-`;
-
-const LowestAsk = styled.div`
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
-`;
-
-const ItemPrice = styled.div`
-  font-size: 22px;
-  font-weight: 700;
-`;
-const Sold = styled.div`
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
-`;
-
-const RecentTime = styled.div`
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
 `;
 
 const GoToSneakers = styled.button`
@@ -309,8 +175,8 @@ const GoToSneakers = styled.button`
   font-size: 18px;
   letter-spacing: 1.3px;
   text-align: center;
-  color: white;
-  background-color: #08a05c;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.green};
   &:hover {
     background-color: #045732;
   }
@@ -326,14 +192,12 @@ const BottomContainer = styled.div`
 
 const ArticleSection = styled.div`
   width: 438px;
-  display: flex;
-  flex-direction: column;
+  ${(props) => props.theme.flexColumn};
   padding: 15px;
 `;
 
 const Article = styled.article`
-  display: flex;
-  flex-direction: column;
+  ${(props) => props.theme.flexColumn};
   margin: 0 8px 0 8px;
   padding-bottom: 25px;
   border-bottom: 1px solid #cecece;
@@ -351,8 +215,7 @@ const ArticleTitle = styled.h3`
 const ArticleDate = styled.h4``;
 
 const CalendarSection = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${(props) => props.theme.flexColumn};
   width: 740px;
   padding: 15px;
 `;
@@ -365,8 +228,7 @@ const ItemSection = styled.div`
 `;
 
 const ItemBox = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${(props) => props.theme.flexColumn};
   justify-content: space-between;
   width: 234px;
   height: 316.27px;
@@ -418,13 +280,15 @@ const LowestAskPrice = styled.span`
 const BidBtn = styled.button`
   width: 49px;
   height: 38px;
-  border: 2px solid #08a05c;
+  border: 2px solid ${(props) => props.theme.colors.green};
   font-size: 14px;
   font-weight: bold;
-  color: #08a05c;
+  color: ${(props) => props.theme.colors.green};
   &:hover {
-    color: white;
+    color: ${(props) => props.theme.colors.white};
     border: 2px solid #045732;
     background-color: #045732;
   }
 `;
+
+export default Contents;

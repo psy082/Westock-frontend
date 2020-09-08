@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const banner = {
@@ -17,22 +17,21 @@ const backgroundColor = {
   4: "#85BCE0",
 };
 
-export default class Banner extends Component {
-  render() {
-    return (
-      <Slick color={backgroundColor[this.props.activeTab]}>
-        <Image alt="" height="190px" src={banner[this.props.activeTab]} />
-      </Slick>
-    );
-  }
-}
+const Banner = ({ activeTab }) => {
+  return (
+    <Slick color={backgroundColor[activeTab]}>
+      <Image alt="" height="190px" src={banner[activeTab]} />
+    </Slick>
+  );
+};
 
 const Slick = styled.div`
-  display: flex;
-  justify-content: center;
+  ${(props) => props.theme.flexCenter};
   background-color: ${(props) => props.color};
 `;
 
 const Image = styled.img`
   cursor: pointer;
 `;
+
+export default Banner;

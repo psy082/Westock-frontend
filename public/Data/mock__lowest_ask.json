@@ -1,0 +1,90 @@
+{
+  "message": {
+    "Pagination": {
+      "limit": 5,
+      "page": 1,
+      "product_total": 39,
+      "last_page": 8,
+      "current_page": 1,
+      "next_page": 2,
+      "previous_page": null
+    },
+    "Product": [
+      {
+        "product_id": 24,
+        "product_name": "Jordan 1 Retro High First Class Flight",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-First-Class-Flight-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1568402477",
+        "product_ask_price": 403,
+        "most_popular": 20,
+        "average_price": 684,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 300,
+        "last_sale": 456,
+        "lowest_ask": 403,
+        "highest_bid": 977,
+        "release_date": "2019-09-28"
+      },
+      {
+        "product_id": 32,
+        "product_name": "Jordan 1 Mid SE Fearless Edison Chen CLOT",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Mid-SE-Fearless-Edison-Chen-CLOT-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1576006585",
+        "product_ask_price": 343,
+        "most_popular": 20,
+        "average_price": 661,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 400,
+        "last_sale": 570,
+        "lowest_ask": 343,
+        "highest_bid": 995,
+        "release_date": "2019-12-07"
+      },
+      {
+        "product_id": 17,
+        "product_name": "Jordan 1 Retro High Defiant White Black Gym Red",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Defiant-White-Black-Gym-Red.png?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1565708911",
+        "product_ask_price": 291,
+        "most_popular": 20,
+        "average_price": 690,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 200,
+        "last_sale": 938,
+        "lowest_ask": 291,
+        "highest_bid": 958,
+        "release_date": "2019-07-27"
+      },
+      {
+        "product_id": 37,
+        "product_name": "Jordan 1 Mid Fearless Facetasm",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Mid-Facetasm-Product.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1576006585",
+        "product_ask_price": 287,
+        "most_popular": 20,
+        "average_price": 650,
+        "total_sold": 20,
+        "volatility": 0.0,
+        "price_premium": 400,
+        "last_sale": 665,
+        "lowest_ask": 287,
+        "highest_bid": 923,
+        "release_date": "2019-11-22"
+      },
+      {
+        "product_id": 11,
+        "product_name": "Jordan 1 Retro High Bloodline",
+        "product_image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Bloodlines.jpg?fit=fill&bg=FFFFFF&w=300&h=214&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1573759145",
+        "product_ask_price": 280,
+        "most_popular": 20,
+        "average_price": 615,
+        "total_sold": 20,
+        "volatility": "0.2",
+        "price_premium": 200,
+        "last_sale": 293,
+        "lowest_ask": 280,
+        "highest_bid": 976,
+        "release_date": "2019-11-29"
+      }
+    ]
+  }
+}

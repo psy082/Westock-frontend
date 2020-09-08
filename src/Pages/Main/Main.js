@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import MainNav from "./MainNav";
 import Contents from "./Contents";
@@ -12,28 +12,24 @@ const tabTitle = [
   "Watches",
 ];
 
-export default class Main extends Component {
-  constructor() {
-    super();
-    this.state = { activeTab: 0 };
-  }
-
-  menuTabHandler = (id) => {
-    this.setState({ activeTab: id });
+const Main = () => {
+  const [activeTab, setTab] = useState(0);
+  const menuTabHandler = (id) => {
+    setTab(id);
   };
 
-  render() {
-    return (
-      <>
-        <Header activeTab={this.state.activeTab} tabTitle={tabTitle} />
-        <MainNav
-          menuTabHandler={this.menuTabHandler}
-          activeTab={this.state.activeTab}
-          tabTitle={tabTitle}
-        />
-        <Contents />
-        <Ticker />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Header tabTitle={tabTitle} activeTab={activeTab} />
+      <MainNav
+        tabTitle={tabTitle}
+        activeTab={activeTab}
+        menuTabHandler={menuTabHandler}
+      />
+      <Contents />
+      <Ticker />
+    </>
+  );
+};
+
+export default Main;

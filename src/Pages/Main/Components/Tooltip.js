@@ -34,7 +34,7 @@ const Tip = styled.span`
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   font: 400 16px "proxima-nova, sans-serif";
-  color: #333333;
+  color: ${(props) => props.theme.colors.textBlack};
   opacity: 0;
   transition: all 0.3s;
   visibility: hidden;
