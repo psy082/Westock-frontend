@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import QuestionButton from "./Buttons/QuestionButton";
-import { SORT_DESC, SORT_KEY } from "../itemData";
+import QuestionButton from "../Buttons/QuestionButton";
+import { SORT_DESC, SORT_KEY } from "../../itemData";
 
 function ListPanel({ products, sort, getSortText }) {
   return (
@@ -39,11 +39,11 @@ function ListPanel({ products, sort, getSortText }) {
         </thead>
         <tbody>
           {products.map(
-            ({ title, releaseDate, market, media: { imageUrl } }) => (
+            ({ id, title, releaseDate, market, media: { imageUrl } }) => (
               <ProductList key={title}>
                 <ListCategory className="title">
                   <ListItemImage>
-                    <Link to={`#`}>
+                    <Link to={`/${id}`}>
                       <img
                         alt={title}
                         src={imageUrl}
@@ -54,7 +54,7 @@ function ListPanel({ products, sort, getSortText }) {
                       />
                     </Link>
                   </ListItemImage>
-                  <Link to={`#`}>{title}</Link>
+                  <Link to={`/${id}`}>{title}</Link>
                 </ListCategory>
                 <ListCategory className="selectedValue">
                   {getSortText(

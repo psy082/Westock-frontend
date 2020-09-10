@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 import axios from "axios";
 import HeaderFilter from "./HeaderFilter/HeaderFilter";
 import Pagination from "./Pagination/Pagination";
 import GridPanel from "./GridPanel";
-import ListPanel from "../ListPanel";
+import ListPanel from "./ListPanel";
 import FooterDesc from "./FooterDesc/FooterDesc";
+import { API_ITEMLIST } from "../../../../config";
 
 function ItemContainer({
   queries,
@@ -13,15 +16,36 @@ function ItemContainer({
   subQueries,
   setSubFilter,
   resetFilters,
-  queryString,
 }) {
   const { category, series } = queries;
   const { page, sort } = subQueries;
   const [products, setProducts] = useState([]);
   const [lastPage, setLastPage] = useState(1);
-  const [view, setView] = useState("list");
+  const view = useSelector((store) => {
+    console.log(store);
+    return store.viewReducer;
+  });
 
-  console.log(queryString);
+  // useEffect(() => {
+  //   async function getProducts() {
+  //     try {
+  //       const {
+  //         data: { message },
+  //       } = await axios.get(API_ITEMLIST + `?sort=${sort}&limit=20`);
+  //       const {
+  //         Pagination: { last_page },
+  //         Product,
+  //       } = message;
+
+  //       setProducts(Product);
+  //       setLastPage(+last_page);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
+
+  //   getProducts();
+  // }, [sort, queries, subQueries]);
 
   useEffect(() => {
     async function getProducts() {
@@ -43,11 +67,11 @@ function ItemContainer({
     getProducts();
   }, [queries, subQueries]);
 
+  console.log(products, lastPage);
+
   return (
     <Container>
       <HeaderFilter
-        view={view}
-        setView={setView}
         queries={queries}
         setFilter={setFilter}
         sort={sort}

@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { selectView } from "../../../../../Store/actions/viewActions";
 import { SORT_DESC } from "../../../itemData";
 
-function FunctionBlock({ sort, setSubFilter, view, setView }) {
+function FunctionBlock({ sort, setSubFilter }) {
   const [filterClicked, setFilterClicked] = useState(false);
+  const dispatch = useDispatch();
+  const view = useSelector((store) => store.viewReducer);
 
+  const _selectView = (view) => {
+    dispatch(selectView(view));
+  };
+
+  console.log(view);
   return (
     <FunctionContainer>
       <FunctionWrapper>
@@ -37,15 +46,13 @@ function FunctionBlock({ sort, setSubFilter, view, setView }) {
             </SortSelectBox>
           )}
         </FilterWrapper>
-        {getViewButton(view, setView)}
+        {getViewButton(view, _selectView)}
       </FunctionWrapper>
     </FunctionContainer>
   );
 }
 
-const FunctionContainer = styled.div`
-  flex: 0 0 320px;
-`;
+const FunctionContainer = styled.div``;
 
 const FunctionWrapper = styled.div`
   display: flex;

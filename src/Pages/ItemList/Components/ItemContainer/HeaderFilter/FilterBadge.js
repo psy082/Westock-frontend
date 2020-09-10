@@ -13,14 +13,16 @@ function FilterBadge({ queries, setFilter, resetFilters }) {
         multiBadges: [],
       };
       for (const [key, value] of Object.entries(queries)) {
-        const isAirJordan = key === "category" && value === "air jordan";
+        const isSneakers = key === "category" && value === "sneakers";
         const isArray = Array.isArray(value);
 
         if (!isArray && value) {
-          badges.singleBadges.push({
-            value,
-            clear: () => setFilter(key, isAirJordan ? "sneakers" : ""),
-          });
+          !isSneakers &&
+            badges.singleBadges.push({
+              value,
+              clear: () =>
+                setFilter(key, value === "air jordan" ? "sneakers" : value),
+            });
         }
         if (isArray) {
           badges.multiBadges.push(
@@ -37,19 +39,13 @@ function FilterBadge({ queries, setFilter, resetFilters }) {
     setSingleBadges(singleBadges);
     setMultiBadges(multiBadges);
   }, [queries, setFilter]);
-
+  console.log(singleBadges, multiBadges);
   return (
     <FilterBadgeList>
       {singleBadges.length ? (
-        multiBadges.length ? (
-          <FilterClear onClick={() => resetFilters()}>
-            clear filters
-          </FilterClear>
-        ) : (
-          <FilterClear onClick={() => resetFilters()}>
-            clear filters
-          </FilterClear>
-        )
+        <FilterClear onClick={() => resetFilters()}>clear filters</FilterClear>
+      ) : multiBadges.length ? (
+        <FilterClear onClick={() => resetFilters()}>clear filters</FilterClear>
       ) : (
         <></>
       )}

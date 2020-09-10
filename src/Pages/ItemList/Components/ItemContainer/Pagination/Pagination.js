@@ -110,7 +110,7 @@ const getPageText = (page, lastPage) => {
         .map((_, index) => index + 1),
     ];
   }
-  if (page > 0 && page < 5) {
+  if (page > 0 && page < 4) {
     return [
       ...Array(4)
         .fill()
@@ -119,7 +119,7 @@ const getPageText = (page, lastPage) => {
       lastPage,
     ];
   }
-  if (page > lastPage - 4 && page <= lastPage) {
+  if (page > lastPage - 3 && page <= lastPage) {
     return [
       1,
       "...",
@@ -140,9 +140,9 @@ const getPageText = (page, lastPage) => {
 };
 
 const getPageBlocks = (page, pageText, filter) => {
-  return pageText.map((text) =>
+  return pageText.map((text, index) =>
     isNaN(text) ? (
-      <div key={`page${text}ellip`} className="ellipsis">
+      <div key={`${index}th ellip`} className="ellipsis">
         ...
       </div>
     ) : (

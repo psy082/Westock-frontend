@@ -79,6 +79,7 @@ function ItemList() {
       search: newQS,
     });
     if (JSON.stringify(qs.parse(newQS)) !== JSON.stringify(qs.parse(search))) {
+      document.documentElement.scrollTop = 0;
       history.go(0);
     }
   }, [history, queries, search, subQueries]);
@@ -152,7 +153,6 @@ function ItemList() {
               subQueries={subQueries}
               setSubFilter={setSubFilter}
               resetFilters={resetFilters}
-              queryString={search}
             />
           </MainWrapper>
         </MainContainer>

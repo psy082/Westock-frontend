@@ -10,8 +10,6 @@ function HeaderFilter({
   sort,
   setSubFilter,
   resetFilters,
-  view,
-  setView,
 }) {
   const { category, series } = queries;
 
@@ -25,12 +23,7 @@ function HeaderFilter({
           resetFilters={resetFilters}
         />
       </div>
-      <FunctionBlock
-        sort={sort}
-        setSubFilter={setSubFilter}
-        view={view}
-        setView={setView}
-      />
+      <FunctionBlock sort={sort} setSubFilter={setSubFilter} />
     </Container>
   );
 }

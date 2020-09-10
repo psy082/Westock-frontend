@@ -6,54 +6,56 @@ import { SORT_KEY } from "../../itemData";
 function GridPanel({ products, sort, getSortText }) {
   return (
     <GridContainer>
-      {products.map(({ title, releaseDate, market, media: { imageUrl } }) => (
-        <ProductContainer key={title}>
-          <ProductWrapper>
-            <ProductLink to="#">
-              <ProductImageWrapper>
-                <ProductImage
-                  alt={title}
-                  src={imageUrl}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/Images/empty_item.jpg";
-                  }}
-                />
-              </ProductImageWrapper>
-              <ProductDescWrapper>
-                <ProductTitle>
-                  {title.length < 45
-                    ? title
-                    : title.substring(0, title.indexOf("("))}
-                </ProductTitle>
-                <div>
-                  <ProductPriceName>
-                    {sort === "highest_bid" ? "highest bid" : "lowest ask"}
-                  </ProductPriceName>
-                  <ProductPrice>{"$" + market.lowestAsk}</ProductPrice>
-                </div>
-                {sort === "lowest_ask" ? (
-                  sort === "highest_bid" ? (
-                    <></>
+      {products.map(
+        ({ id, title, releaseDate, market, media: { imageUrl } }) => (
+          <ProductContainer key={title}>
+            <ProductWrapper>
+              <ProductLink to={`/${id}`}>
+                <ProductImageWrapper>
+                  <ProductImage
+                    alt={title}
+                    src={imageUrl}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/Images/empty_item.jpg";
+                    }}
+                  />
+                </ProductImageWrapper>
+                <ProductDescWrapper>
+                  <ProductTitle>
+                    {title.length < 45
+                      ? title
+                      : title.substring(0, title.indexOf("("))}
+                  </ProductTitle>
+                  <div>
+                    <ProductPriceName>
+                      {sort === "highest_bid" ? "highest bid" : "lowest ask"}
+                    </ProductPriceName>
+                    <ProductPrice>{"$" + market.lowestAsk}</ProductPrice>
+                  </div>
+                  {sort === "lowest_ask" ? (
+                    sort === "highest_bid" ? (
+                      <></>
+                    ) : (
+                      <></>
+                    )
                   ) : (
-                    <></>
-                  )
-                ) : (
-                  <ProductSortText>
-                    {getSortText(
-                      "grid",
-                      sort,
-                      sort === "release_date"
-                        ? releaseDate
-                        : market[SORT_KEY[sort]]
-                    )}
-                  </ProductSortText>
-                )}
-              </ProductDescWrapper>
-            </ProductLink>
-          </ProductWrapper>
-        </ProductContainer>
-      ))}
+                    <ProductSortText>
+                      {getSortText(
+                        "grid",
+                        sort,
+                        sort === "release_date"
+                          ? releaseDate
+                          : market[SORT_KEY[sort]]
+                      )}
+                    </ProductSortText>
+                  )}
+                </ProductDescWrapper>
+              </ProductLink>
+            </ProductWrapper>
+          </ProductContainer>
+        )
+      )}
     </GridContainer>
   );
 }
