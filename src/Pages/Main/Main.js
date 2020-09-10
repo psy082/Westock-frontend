@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import Nav from "../../Components/Nav/Nav";
 import Header from "./Header";
 import MainNav from "./MainNav";
 import Contents from "./Contents";
 import Ticker from "./Ticker";
+import Footer from "../../Components/Footer/Footer";
 
 const tabTitle = [
   "Sneakers",
@@ -20,6 +22,7 @@ const Main = () => {
 
   return (
     <>
+      <Nav />
       <Header tabTitle={tabTitle} activeTab={activeTab} />
       <MainNav
         tabTitle={tabTitle}
@@ -28,6 +31,7 @@ const Main = () => {
       />
       <Contents />
       <Ticker />
+      <Footer />
     </>
   );
 };

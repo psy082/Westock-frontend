@@ -13,7 +13,7 @@ const Items = ({
   const history = useHistory();
 
   const goToItem = (id) => {
-    history.push(`product/${id}`);
+    history.push(`/${id}`);
   };
 
   return (
@@ -28,13 +28,14 @@ const Items = ({
                   onClick={() => goToItem(el.product_id)}
                 >
                   <ItemImageBox>
-                    <ItemImage alt="" src={el.product_image} />
+                    .
+                    <ItemImage alt="" src={el.image} />
                   </ItemImageBox>
                   <ItemInfo>
-                    <ItemName>{el.product_name}</ItemName>
+                    <ItemName>{el.name}</ItemName>
                     <LowestAsk>Lowest Ask</LowestAsk>
                     <ItemPrice>${el.product_ask_price}</ItemPrice>
-                    <Sold>{el.total_sold} Sold</Sold>
+                    <Sold>{el.sale_count} Sold</Sold>
                   </ItemInfo>
                 </Item>
               );
@@ -50,10 +51,10 @@ const Items = ({
                   onClick={() => goToItem(el.product_id)}
                 >
                   <ItemImageBox>
-                    <ItemImage alt="" src={el.product_image} />
+                    <ItemImage alt="" src={el.image} />
                   </ItemImageBox>
                   <ItemInfo>
-                    <ItemName>{el.product_name}</ItemName>
+                    <ItemName>{el.name}</ItemName>
                     <LowestAsk>Lowest Ask</LowestAsk>
                     <ItemPrice>${el.lowest_ask}</ItemPrice>
                     <LastSell>{el.release_date}</LastSell>
@@ -72,10 +73,10 @@ const Items = ({
                   onClick={() => goToItem(el.product_id)}
                 >
                   <ItemImageBox>
-                    <ItemImage alt="" src={el.product_image} />
+                    <ItemImage alt="" src={el.image} />
                   </ItemImageBox>
                   <ItemInfo>
-                    <ItemName>{el.product_name}</ItemName>
+                    <ItemName>{el.name}</ItemName>
                     <LowestAsk>Lowest Ask</LowestAsk>
                     <ItemPrice>${el.highest_bid}</ItemPrice>
                     <LastSell>{el.release_date}</LastSell>

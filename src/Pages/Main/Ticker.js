@@ -55,6 +55,7 @@ const TickerContainer = styled.div`
   font-size: 18px;
   font-weight: 600;
   background-color: #252525;
+  z-index: 9999;
 `;
 
 const TickerText = styled.div`

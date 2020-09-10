@@ -41,6 +41,12 @@
       "title": "TAEHYUN",
       "price": 66,
       "isup": true
+    },
+    {
+      "id": 8,
+      "title": "MINWOOK",
+      "price": 666,
+      "isup": false
     }
   ]
 }
