@@ -8,7 +8,7 @@ import Pagination from "./Pagination/Pagination";
 import GridPanel from "./GridPanel";
 import ListPanel from "./ListPanel";
 import FooterDesc from "./FooterDesc/FooterDesc";
-import { API_ITEMLIST } from "../../../../config";
+import { API_ADDRESS } from "../../../../config";
 
 function ItemContainer({
   queries,
@@ -26,46 +26,28 @@ function ItemContainer({
     return store.viewReducer;
   });
 
-  // useEffect(() => {
-  //   async function getProducts() {
-  //     try {
-  //       const {
-  //         data: { message },
-  //       } = await axios.get(API_ITEMLIST + `?sort=${sort}&limit=20`);
-  //       const {
-  //         Pagination: { last_page },
-  //         Product,
-  //       } = message;
-
-  //       setProducts(Product);
-  //       setLastPage(+last_page);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
-
-  //   getProducts();
-  // }, [sort, queries, subQueries]);
-
   useEffect(() => {
     async function getProducts() {
       try {
-        const { data } = await axios.get("/Data/mockItemLists.json");
+        const {
+          data: { message },
+        } = await axios.get(
+          API_ADDRESS + `/products?sort=${sort}&page=${page}&limit=40`
+        );
         const {
           Pagination: { last_page },
-          Products,
-        } = data;
-        const index = last_page.indexOf("page");
+          Product,
+        } = message;
 
-        setProducts(Products);
-        setLastPage(+last_page.substring(index + 5, last_page.length));
+        setProducts(Product);
+        setLastPage(+last_page);
       } catch (err) {
         console.error(err);
       }
     }
 
     getProducts();
-  }, [queries, subQueries]);
+  }, [sort, queries, subQueries]);
 
   console.log(products, lastPage);
 
@@ -140,8 +122,8 @@ const getSortText = (view, sort, data) => {
   const sortText = {
     grid: {
       most_popular: `# of sales: ${data}`,
-      recent_asks: getTimeLine(data),
-      recent_bids: getTimeLine(data),
+      recent_asks: data,
+      recent_bids: data,
       average_price: `avg sales: ${data}`,
       total_sold: `# sold: ${data}`,
       volatility: `volatility: ${(data * 100).toFixed(0)}%`,
@@ -151,8 +133,8 @@ const getSortText = (view, sort, data) => {
     },
     list: {
       most_popular: data,
-      recent_asks: getTimeLine(data),
-      recent_bids: getTimeLine(data),
+      recent_asks: data,
+      recent_bids: data,
       average_price: `$${data}`,
       total_sold: data,
       volatility: `${(data * 100).toFixed(0)}%`,

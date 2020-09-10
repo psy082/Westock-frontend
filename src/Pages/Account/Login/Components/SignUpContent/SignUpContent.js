@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
-import { API_REGISTER } from "../../../../../config";
+import { API_ADDRESS } from "../../../../../config";
 
 function SignUpContent() {
   const [first_name, setFirstname] = useState("");
@@ -18,7 +18,7 @@ function SignUpContent() {
       alert("회원가입 약관에 필수동의를 체크해주세요");
       history.push("/account/login");
     }
-    fetch(`${API_REGISTER}`, {
+    fetch(`${API_ADDRESS}/users/sign-up`, {
       method: "POST",
       body: JSON.stringify({
         first_name: first_name,

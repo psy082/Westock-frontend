@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import QuestionButton from "../Buttons/QuestionButton";
-import { SORT_DESC, SORT_KEY } from "../../itemData";
+import { SORT_DESC } from "../../itemData";
+
+const changeValue = 19;
 
 function ListPanel({ products, sort, getSortText }) {
   return (
@@ -38,51 +40,41 @@ function ListPanel({ products, sort, getSortText }) {
           </tr>
         </thead>
         <tbody>
-          {products.map(
-            ({ id, title, releaseDate, market, media: { imageUrl } }) => (
-              <ProductList key={title}>
-                <ListCategory className="title">
-                  <ListItemImage>
-                    <Link to={`/${id}`}>
-                      <img
-                        alt={title}
-                        src={imageUrl}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "/Images/empty_item.jpg";
-                        }}
-                      />
-                    </Link>
-                  </ListItemImage>
-                  <Link to={`/${id}`}>{title}</Link>
-                </ListCategory>
-                <ListCategory className="selectedValue">
-                  {getSortText(
-                    "list",
-                    sort,
-                    sort === "release_date"
-                      ? releaseDate
-                      : market[SORT_KEY[sort]]
+          {products?.map((product) => (
+            <ProductList key={product.product_id}>
+              <ListCategory className="title">
+                <ListItemImage>
+                  <Link to={`/${product.product_id}`}>
+                    <img
+                      alt={product.name}
+                      src={product.image}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/Images/empty_item.jpg";
+                      }}
+                    />
+                  </Link>
+                </ListItemImage>
+                <Link to={`/${product.product_id}`}>{product.name}</Link>
+              </ListCategory>
+              <ListCategory className="selectedValue">
+                {getSortText("list", `${sort}`, product[sort])}
+              </ListCategory>
+              <ListCategory className="lastSale">
+                <LastSaleText>
+                  {`$${product.last_sale}`}
+                  {changeValue > 0 && (
+                    <span className="green">{`+$${changeValue}`}</span>
                   )}
-                </ListCategory>
-                <ListCategory className="lastSale">
-                  <LastSaleText>
-                    {`$${market.lastSale}`}
-                    {market.changeValue > 0 && (
-                      <span className="green">{`+$${market.changeValue}`}</span>
-                    )}
-                    {market.changeValue < 0 && (
-                      <span className="red">{`-$${Math.abs(
-                        market.changeValue
-                      )}`}</span>
-                    )}
-                  </LastSaleText>
-                </ListCategory>
-                <ListCategory className="lowestAsk">{`$${market.lowestAsk}`}</ListCategory>
-                <ListCategory className="highestBid">{`$${market.highestBid}`}</ListCategory>
-              </ProductList>
-            )
-          )}
+                  {changeValue < 0 && (
+                    <span className="red">{`-$${Math.abs(changeValue)}`}</span>
+                  )}
+                </LastSaleText>
+              </ListCategory>
+              <ListCategory className="lowestAsk">{`$${product.lowest_ask}`}</ListCategory>
+              <ListCategory className="highestBid">{`$${product.highest_bid}`}</ListCategory>
+            </ProductList>
+          ))}
         </tbody>
       </ProductsTable>
     </ListContainer>

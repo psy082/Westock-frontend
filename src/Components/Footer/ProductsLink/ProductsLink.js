@@ -18,6 +18,10 @@ function ProductsLink() {
 const Container = styled.div`
   width: 1350px;
   margin: auto;
+
+  @media (max-width: 1440px) {
+    width: 1140px;
+  }
 `;
 
 const Wrapper = styled.div`

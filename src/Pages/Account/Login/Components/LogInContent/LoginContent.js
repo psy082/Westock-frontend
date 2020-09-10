@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
-import { API_LOGIN } from "../../../../../config";
+import { API_ADDRESS } from "../../../../../config";
 
 function LoginContent() {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ function LoginContent() {
   let history = useHistory();
 
   const handleOnclick = (e) => {
-    fetch(`${API_LOGIN}`, {
+    fetch(`${API_ADDRESS}/users/sign-in`, {
       method: "POST",
       body: JSON.stringify({
         email: email,

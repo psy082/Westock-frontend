@@ -7,8 +7,8 @@ function Connections() {
   return (
     <Container>
       <Localization>
-        {LOCALIZATION.map((local) => (
-          <span>{local}</span>
+        {LOCALIZATION.map((local, index) => (
+          <span key={`local${index}`}>{local}</span>
         ))}
       </Localization>
       <SocialNetworks>
@@ -55,6 +55,10 @@ const Container = styled.div`
   width: 1350px;
   min-height: 65px;
   margin: 10px auto;
+
+  @media (max-width: 1440px) {
+    width: 1140px;
+  }
 `;
 
 const Localization = styled.div`

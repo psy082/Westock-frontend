@@ -8,7 +8,7 @@ function ProductsBar({ title, items }) {
       <List>
         <Title>{title}</Title>
         {items.map((item) => (
-          <Item>
+          <Item key={`item_title_${item}`}>
             <Link to="#">{item}</Link>
           </Item>
         ))}
@@ -41,15 +41,23 @@ const Title = styled.span`
   font-size: 15px;
   margin: 0;
 
+  @media (max-width: 1440px) {
+    font-size: 13px;
+  }
+
   a {
     color: #ffffff;
   }
 `;
 
 const Item = styled.li`
-  padding-top: 8px;
+  padding-top: 12px;
   font-size: 13px;
   text-transform: capitalize;
+
+  @media (max-width: 1440px) {
+    font-size: 12px;
+  }
 
   a {
     color: #808080;

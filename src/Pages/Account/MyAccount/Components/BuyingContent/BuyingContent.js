@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import BuyingTabs from "../BuyingTabs/BuyingTabs";
-import { BUYING_CURRENT } from "../../../../../config";
+import { API_ADDRESS } from "../../../../../config";
 
 function BuyingContent() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`${BUYING_CURRENT}`, {
+    fetch(`${API_ADDRESS}/users/buying-list`, {
       headers: {
         Authorization: localStorage.getItem("ACCESS_TOKEN"),
       },

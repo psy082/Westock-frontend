@@ -261,7 +261,7 @@ const SubcategoryLabel = styled.label`
       color: white;
       font-family: "Font Awesome 5 Free";
       font-weight: 600;
-      font-size: 5px;
+      font-size: 9px;
       text-align: center;
       background: #1E90FF;
       transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;

@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { withRouter, useHistory } from "react-router-dom";
+import { API_ADDRESS, GOOGLE_KEY } from "../../../../../config";
+import { GoogleLogin } from "react-google-login";
 import SocialIconGoogle from "../SocialLoginIcon/SocialIconGoogle";
 import SocialIconGithub from "../SocialLoginIcon/SocialIconGithub";
 import SocialIconFacebook from "../SocialLoginIcon/SocialIconFacebook";
 import SocialIconKakao from "../SocialLoginIcon/SocialIconKakao";
-import { GoogleLogin } from "react-google-login";
 import { kakaoApi } from "./ApiProcess/ApiProcess";
-import { API_LOGIN, GOOGLE_KEY } from "../../../../../config";
 
 function SocialLogin() {
   const history = useHistory();
@@ -65,7 +65,7 @@ const Button = styled.button`
 
 const setToken = (access_token, sns, history) => {
   console.log(access_token, sns);
-  fetch(`${API_LOGIN}/${sns}`, {
+  fetch(`${API_ADDRESS}/users/sign-in/${sns}`, {
     headers: {
       Authorization: access_token,
     },

@@ -5,6 +5,7 @@ import qs from "query-string";
 import HeadPoster from "./Components/ItemContainer/HeadPoster";
 import ItemContainer from "./Components/ItemContainer/ItemContainer";
 import SideFilters from "./Components/SideFilters";
+import Footer from "../../Components/Footer/Footer";
 
 function ItemList() {
   const history = useHistory();
@@ -157,6 +158,7 @@ function ItemList() {
           </MainWrapper>
         </MainContainer>
       </PageContainer>
+      <Footer />
     </Container>
   );
 }

@@ -18,7 +18,7 @@ function Informations() {
       <Bottom>
         <LanguagesBlock>
           {LANG.map((lang) => (
-            <Language>
+            <Language key={lang}>
               <Link to="#">{lang}</Link>
             </Language>
           ))}
@@ -41,6 +41,10 @@ const Top = styled.div`
   align-items: center;
   width: 1350px;
   margin: auto;
+
+  @media (max-width: 1440px) {
+    width: 1140px;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -71,6 +75,10 @@ const Bottom = styled.div`
   height: 60px;
   width: 1350px;
   margin: auto;
+
+  @media (max-width: 1440px) {
+    width: 1140px;
+  }
 `;
 
 const LanguagesBlock = styled.div`
