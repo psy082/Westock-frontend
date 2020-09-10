@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-export default function ScrollSlider({ getScrollIndex }) {
+export default function ScrollSlider({ getScrollIndex, isVisible }) {
   const [value, setValue] = useState(0);
-
   const handleOnChange = (e) => {
     setValue(e.target.value);
     getScrollIndex(e.target.value);
   };
 
   return (
-    <Container idx={(value / 35) * 100 + "%"}>
+    <Container
+      isVisible={isVisible ? "" : "none"}
+      idx={(value / 35) * 100 + "%"}
+    >
       <div>
         <input
           type="range"
@@ -25,7 +27,8 @@ export default function ScrollSlider({ getScrollIndex }) {
 }
 
 const Container = styled.div`
-  ${(props) => props.theme.flexCenter};
+  ${({ theme }) => theme.flexCenter};
+  display: ${({ isVisible }) => isVisible};
   width: 100%;
 
   div {

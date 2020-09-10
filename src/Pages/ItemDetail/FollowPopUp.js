@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 export default function FollowPopUp({
@@ -8,18 +8,39 @@ export default function FollowPopUp({
   isPopUpActive,
   followExplanation,
   handleFollowPopUp,
+  productId,
 }) {
+  const sizes = sizeList?.slice(1).map((el) => el.size);
+  const sizesToSend = followList.map((el) => sizes[el - 1]);
+
   const handleClick = (idx) => {
     sizesToFollow(idx);
   };
+
+  useEffect(() => {
+    fetch("http://13.125.177.118:8000/users/follow", {
+      method: "POST",
+      body: JSON.stringify({
+        product: productId,
+        sizes: sizesToSend,
+      }),
+      headers: {
+        Authorization: localStorage.getItem("ACCESS_TOKEN"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res), followList);
+  }, [followList, productId, sizesToSend]);
+
   return (
     <PopUp isPopUpActive={isPopUpActive} followExplanation={followExplanation}>
       <Fin />
       <Content>
         <h1>U.S. Men's size</h1>
         <SizeSelect>
-          {sizeList.slice(1).map((el, idx) => (
+          {sizeList?.slice(1).map((el, idx) => (
             <SizeBtn
+              key={idx}
               isClicked={followList.includes(idx + 1)}
               followList={followList}
               onClick={() => isPopUpActive && handleClick(idx + 1)}
@@ -37,7 +58,7 @@ export default function FollowPopUp({
 const PopUp = styled.div`
   ${({ theme }) => theme.flexColumnCenter};
   position: absolute;
-  top: 60px;
+  top: 161px;
   right: 340px;
   width: 280px;
   margin-top: 25px;
@@ -47,8 +68,8 @@ const PopUp = styled.div`
   visibility: ${({ isPopUpActive, followExplanation }) =>
     !followExplanation && isPopUpActive ? "visible" : "hidden"};
   opacity: ${({ isPopUpActive }) => (isPopUpActive ? "1" : "0")};
-  transition: opacity 1s ease,
-    visibility 0s ease ${({ isPopUpActive }) => (isPopUpActive ? "0s" : "1s")};
+  transition: opacity 0.3s ease,
+    visibility 0s ease ${({ isPopUpActive }) => (isPopUpActive ? "0s" : "0.3s")};
 `;
 
 const Fin = styled.div`
