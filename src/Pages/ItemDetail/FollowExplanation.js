@@ -38,8 +38,8 @@ const PopUp = styled.div`
   z-index: 4;
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
   opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
-  transition: opacity 1s ease,
-    visibility 0s ease ${({ isVisible }) => (isVisible ? "0s" : "1s")};
+  transition: opacity 0.3s ease,
+    visibility 0s ease ${({ isVisible }) => (isVisible ? "0s" : "0.3s")};
 `;
 
 const Fin = styled.div`

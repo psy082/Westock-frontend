@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import qs from "query-string";
+import Nav from "../../Components/Nav/Nav";
 import HeadPoster from "./Components/ItemContainer/HeadPoster";
 import ItemContainer from "./Components/ItemContainer/ItemContainer";
 import SideFilters from "./Components/SideFilters";
@@ -143,6 +144,7 @@ function ItemList() {
 
   return (
     <Container>
+      <Nav type="rest" />
       <PageContainer>
         <HeadPoster category={queries.category} series={queries.series} />
         <MainContainer>
@@ -173,6 +175,7 @@ const Container = styled.div`
 
 const PageContainer = styled.div`
   position: relative;
+  top: -111px;
   min-height: 100vh;
   padding-top: 91px;
   padding-bottom: 60px;

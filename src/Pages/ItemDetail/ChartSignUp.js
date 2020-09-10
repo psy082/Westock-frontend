@@ -1,24 +1,32 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function ChartSignUp() {
+export default function ChartSignUp({ isLoggedin }) {
   return (
-    <Overlay>
+    <Overlay isLoggedin={isLoggedin}>
       <PopUp>
         <h1>Sign up for free to view all recent sales data</h1>
-        <SignUp>signup</SignUp>
-        <LogIn>or login</LogIn>
+        <SignUp>
+          <Link to="/account/login">signup</Link>
+        </SignUp>
+        <LogIn>
+          <Link to="/account/login">or login</Link>
+        </LogIn>
       </PopUp>
     </Overlay>
   );
 }
 
 const Overlay = styled.div`
-  position: relative;
+  visibility: ${({ isLoggedin }) => (isLoggedin ? "hidden" : "visible")};
+  position: absolute;
+  top: 0;
   ${(props) => props.theme.flexCenter};
   width: 100%;
   height: 100%;
   background: hsla(0, 0%, 100%, 0.9);
+  z-index: 3;
 `;
 
 const PopUp = styled.div`
@@ -38,16 +46,26 @@ const PopUp = styled.div`
 `;
 
 const SignUp = styled.button`
-  color: #fff;
   background: ${(props) => props.theme.colors.green};
   border-radius: 5px;
   font: 400 20px "Bebas Neue", cursive;
   letter-spacing: 2px;
   padding: 15px 25px 12px;
+
+  a {
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: #066f40;
+  }
 `;
 
 const LogIn = styled.button`
-  color: ${(props) => props.theme.colors.green};
   font-size: 16px;
   margin: 10px 0 -10px;
+
+  a {
+    color: ${(props) => props.theme.colors.green};
+  }
 `;

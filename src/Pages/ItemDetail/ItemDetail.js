@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Nav from "../../Components/Nav/Nav";
+import Footer from "../../Components/Footer/Footer";
 import Slider from "./Slider";
 import SizePopUp from "./SizePopUp";
 import ScrollSlider from "./ScrollSlider";
@@ -10,17 +13,41 @@ import FollowPopUp from "./FollowPopUp";
 import ArrowUp from "./Components/ArrowUp";
 import ArrowDown from "./Components/ArrowDown";
 import PlusSign from "./Components/PlusSign";
+import SalesChart from "./SalesChart";
+import SignUpModal from "./Components/SignUpModal";
+import ViewAllModal from "./Components/ViewAllModal";
+import ViewAllSales from "./Components/ViewAllSales";
 
 function ItemDetail() {
+  const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
-  const [sizeList, setSize] = useState([]);
   const [selectedSize, setSelectedSize] = useState(0);
-  const [details, setDetails] = useState({});
-  const [aroundView, setAroundView] = useState([]);
   const [scrollIndex, setScrollIndex] = useState(0);
   const [followList, setFollowList] = useState([]);
   const [isFollowPopUpActive, setIsFollowPopUpActive] = useState(false);
   const [followExplanation, setFollowExplanation] = useState(true);
+  const [modalActive, setModalActive] = useState(false);
+  const [salesModalActive, setSalesModalActive] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+
+  const isLoggedin = localStorage.getItem("ACCESS_TOKEN") ? true : false;
+  const params = useParams();
+
+  useEffect(() => {
+    fetch(`http://13.125.177.118:8000/products/${params.itemName}`)
+      .then((res) => res.json())
+      .then((res) => setData(res.message));
+  }, [params]);
+
+  useEffect(() => {
+    modalActive
+      ? (window.document.body.style.overflowY = "hidden")
+      : (window.document.body.style.overflowY = "scroll");
+  }, [modalActive]);
+
+  const sizeList = data["size_info_list"];
+  const aroundView = data["detail_images"]?.split("|");
+  const isFollowing = followList.length > 0;
 
   const handleSize = () => {
     setIsActive(!isActive);
@@ -30,28 +57,10 @@ function ItemDetail() {
     setSelectedSize(size);
   };
 
-  useEffect(() => {
-    fetch("Data/ItemdetailData.json")
-      .then((res) => res.json())
-      .then((res) => setSize(res.sizeList));
-  }, []);
-
-  useEffect(() => {
-    fetch("Data/ItemdetailData.json")
-      .then((res) => res.json())
-      .then((res) => setAroundView(Object.values(res.aroundView).reverse()));
-  }, []);
-
-  useEffect(() => {
-    fetch("Data/ItemdetailData.json")
-      .then((res) => res.json())
-      .then((res) => setDetails(res.itemDetails));
-  }, []);
-
   const isPositive = () => {
-    if (sizeList[selectedSize]?.difference.includes("-")) {
+    if (sizeList && sizeList[selectedSize].difference?.includes("-")) {
       return "#ff5a5f";
-    } else if (sizeList[selectedSize]?.difference.includes("+")) {
+    } else if (sizeList && sizeList[selectedSize].difference?.includes("+")) {
       return "#08a05c";
     } else {
       return "#999";
@@ -59,15 +68,17 @@ function ItemDetail() {
   };
 
   const arrow = () => {
-    if (sizeList[selectedSize]?.difference.includes("-")) {
+    if (sizeList && sizeList[selectedSize].difference?.includes("-")) {
       return "#ff5a5f";
-    } else if (sizeList[selectedSize]?.difference.includes("+")) {
+    } else if (sizeList && sizeList[selectedSize].difference?.includes("+")) {
       return "#08a05c";
     }
   };
 
   const isNull = () => {
-    return sizeList[selectedSize]?.lastSize === null ? "none" : "block";
+    return sizeList && sizeList[selectedSize].lastSize === null
+      ? "none"
+      : "block";
   };
 
   const closePopUp = () => {
@@ -91,32 +102,93 @@ function ItemDetail() {
   const handleFollowExp = () => {
     setFollowExplanation(false);
   };
+
+  const releaseDate = () => {
+    const lst = data.release_date?.split("-");
+    return `${lst && lst[2]}/${lst && lst[1]}/${lst && lst[0]}`;
+  };
+
+  const handleModal = (title) => {
+    setModalTitle(title);
+    setModalActive(!modalActive);
+  };
+
+  const handleSalesModal = (title) => {
+    setModalTitle(title);
+    setSalesModalActive(!salesModalActive);
+  };
+
   return (
     <>
+      <Nav type="rest" />
       <DetailWrapper>
+        <ViewAllModal
+          handleModal={handleModal}
+          isActive={modalActive}
+          isLoggedin={isLoggedin}
+          modalTitle={modalTitle}
+        />
+        <ViewAllSales
+          handleModal={handleSalesModal}
+          isActive={salesModalActive}
+          isLoggedin={isLoggedin}
+          modalTitle={modalTitle}
+          sales={data.all_sale_list}
+        />
+        <SignUpModal
+          handleSalesModal={handleSalesModal}
+          salesModalActive={salesModalActive}
+          handleModal={handleModal}
+          isActive={modalActive}
+          isLoggedin={isLoggedin}
+        />
         <div className="productGradient"></div>
         <Header>
           <Footage>
             <ul>
-              <li>home</li>
-              <li>sneakers</li>
-              <li>air jordan</li>
-              <li>5</li>
-              <li>jordan 5 retro alternate bel-air</li>
+              <li>
+                <Link to="/"> home</Link>
+              </li>
+              <li>
+                <Link to="/sneakers">{data.main_category}</Link>
+              </li>
+              <li>
+                <Link to="/sneakers?category=air jordan">
+                  {data.sub_category}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/sneakers?category=air jordan&series=${data.series}`}
+                >
+                  {data.series}
+                </Link>
+              </li>
+              <li>
+                <Link to="#">{data.name}</Link>
+              </li>
             </ul>
           </Footage>
           <Buttons>
             <ButtonStyle>
-              <PlusSign />
+              <ArrowUp />
               <DropDownBtn>share</DropDownBtn>
             </ButtonStyle>
             <ButtonStyle>
               <PlusSign />
               <DropDownBtn>portfolio</DropDownBtn>
             </ButtonStyle>
-            <ButtonStyle>
-              <ArrowUp />
-              <DropDownBtn onClick={handleFollowPopUp}>follow</DropDownBtn>
+            <ButtonStyle
+              bgColor={isFollowing ? "#2e2e2e" : "#fff"}
+              svgColor={isFollowing ? "#fff" : ""}
+            >
+              <PlusSign />
+              <DropDownBtn
+                onClick={handleFollowPopUp}
+                textColor={isFollowing ? "#fff" : "black"}
+              >
+                {isFollowing ? "following" : "follow"}
+              </DropDownBtn>
               <FollowExplanation
                 followExplanation={followExplanation}
                 isPopUpActive={isFollowPopUpActive}
@@ -129,6 +201,7 @@ function ItemDetail() {
                 isPopUpActive={isFollowPopUpActive}
                 followExplanation={followExplanation}
                 handleFollowPopUp={handleFollowPopUp}
+                productId={data.product_id}
               />
             </ButtonStyle>
           </Buttons>
@@ -138,20 +211,20 @@ function ItemDetail() {
         <div className="contentContainer">
           <ProductHeader>
             <div>
-              <h1>{details.name}</h1>
+              <h1>{data.name}</h1>
               <SubHeader>
                 <GreyText>
                   condition:
-                  <Condition color="#08a05c">new</Condition>
+                  <Condition palette="#08a05c">new</Condition>
                 </GreyText>
                 <DividerPipe>|</DividerPipe>
                 <GreyText>
                   <span>ticker:</span>
-                  <span>{details.ticker}</span>
+                  <span>{` ${data.ticker}`}</span>
                 </GreyText>
                 <DividerPipe>|</DividerPipe>
                 <div>
-                  <Condition color="#08a05c">100% authentic</Condition>
+                  <Condition palette="#08a05c">100% authentic</Condition>
                 </div>
               </SubHeader>
             </div>
@@ -161,7 +234,7 @@ function ItemDetail() {
               <GreyText>Size</GreyText>
               <SizeSelect onClick={handleSize}>
                 <span className="size">
-                  {sizeList[selectedSize] && sizeList[selectedSize]["size"]}
+                  {sizeList && sizeList[selectedSize].size}
                 </span>
                 <span className="arrowDown">
                   <ArrowDown />
@@ -171,41 +244,47 @@ function ItemDetail() {
                 isActive={isActive}
                 getSize={getSize}
                 closePopUp={closePopUp}
+                sizeList={sizeList}
               />
             </Options>
             <LastSaleBlock>
               <div className="lastSale">
                 <h3>Last Sale</h3>
-                <SaleValue>{`$${sizeList[selectedSize]?.lastSale}`}</SaleValue>
+                <SaleValue>
+                  {sizeList && sizeList[selectedSize].lastSale}
+                </SaleValue>
                 <FlexRowCenter>
                   <Arrow
                     arrowColor={arrow}
                     rotate={
-                      sizeList[selectedSize]?.difference.includes("-")
+                      sizeList &&
+                      sizeList[selectedSize].difference.includes("-")
                         ? "rotate(180deg)"
                         : "rotate(0deg)"
                     }
                   />
-                  <Difference
-                    color={isPositive}
-                  >{`${sizeList[selectedSize]?.difference}`}</Difference>
-                  <Percentage
-                    color={isPositive}
-                  >{`(${sizeList[selectedSize]?.percentage})`}</Percentage>
+                  <Difference palette={isPositive}>{`${
+                    sizeList && sizeList[selectedSize].difference
+                  }`}</Difference>
+                  <Percentage palette={isPositive}>{`(${
+                    sizeList && sizeList[selectedSize].percentage
+                  })`}</Percentage>
                 </FlexRowCenter>
               </div>
               <FlexCenter>
-                <LastSaleSize
-                  display={isNull}
-                >{`Size ${sizeList[selectedSize]?.lastSize}`}</LastSaleSize>
-                <SaleSizeDivider display={isNull} />
-                <LastSaleSize>View All Sales</LastSaleSize>
+                <LastSaleSize isDisplayed={isNull}>{`Size ${
+                  sizeList && sizeList[selectedSize].lastSize
+                }`}</LastSaleSize>
+                <SaleSizeDivider isDisplayed={isNull} />
+                <LastSaleSize onClick={() => handleSalesModal("sales history")}>
+                  View All Sales
+                </LastSaleSize>
               </FlexCenter>
             </LastSaleBlock>
             <BidBtn>
               <button>
                 <Stats>
-                  {`$${sizeList[selectedSize]?.lowestAsk}`}
+                  {sizeList && sizeList[selectedSize].lowestAsk}
                   <BtnSubtitle>Lowest Ask</BtnSubtitle>
                 </Stats>
                 <BtnDivider />
@@ -215,101 +294,106 @@ function ItemDetail() {
                 </BtnTitle>
               </button>
               <FlexCenter>
-                <LastSaleSize>Size --</LastSaleSize>
-                <SaleSizeDivider />
-                <LastSaleSize>View All Sales</LastSaleSize>
+                <LastSaleSize isDisplayed={isNull}>Size --</LastSaleSize>
+                <SaleSizeDivider isDisplayed={isNull} />
+                <LastSaleSize onClick={() => handleModal("all asks")}>
+                  View All Asks
+                </LastSaleSize>
               </FlexCenter>
             </BidBtn>
             <BidBtn bgColor="#ff5a5f">
               <button>
                 <Stats>
-                  {`$${sizeList[selectedSize]?.highestBid}`}
-                  <BtnSubtitle color="#FFCFCF">Highest Bid</BtnSubtitle>
+                  {sizeList && sizeList[selectedSize].highestBid}
+                  <BtnSubtitle palette="#FFCFCF">Highest Bid</BtnSubtitle>
                 </Stats>
-                <BtnDivider color="#cc4c4c" />
+                <BtnDivider palette="#cc4c4c" />
                 <BtnTitle>
                   Sell
-                  <BtnSubtitle color="#FFCFCF">or Ask</BtnSubtitle>
+                  <BtnSubtitle palette="#FFCFCF">or Ask</BtnSubtitle>
                 </BtnTitle>
               </button>
               <FlexCenter>
-                <LastSaleSize>Size --</LastSaleSize>
-                <SaleSizeDivider />
-                <LastSaleSize>View All Sales</LastSaleSize>
+                <LastSaleSize isDisplayed={isNull}>Size --</LastSaleSize>
+                <SaleSizeDivider isDisplayed={isNull} />
+                <LastSaleSize onClick={() => handleModal("all bids")}>
+                  View All Bids
+                </LastSaleSize>
               </FlexCenter>
             </BidBtn>
           </ProductSummary>
           <ProductMedia>
             <AroundView>
-              <ScrollSliderItem img={aroundView[scrollIndex]} />
-              <ScrollSlider getScrollIndex={getScrollIndex} />
+              <ScrollSliderItem img={aroundView && aroundView[scrollIndex]} />
+              <ScrollSlider
+                getScrollIndex={getScrollIndex}
+                isVisible={aroundView?.length !== 1}
+              />
             </AroundView>
           </ProductMedia>
           <ProductInfo>
-            <DetailColumn>
+            <DetailColumn isColumn={data.description}>
               <Detail>
                 <DetailTitle>Style</DetailTitle>
-                <DetailContent>{details.style}</DetailContent>
+                <DetailContent>{data.style}</DetailContent>
               </Detail>
               <Detail>
                 <DetailTitle>Colorway</DetailTitle>
-                <DetailContent>{details.colorway}</DetailContent>
+                <DetailContent>{data.colorway}</DetailContent>
               </Detail>
               <Detail>
                 <DetailTitle>retail price</DetailTitle>
-                <DetailContent>{`$${details.retailPrice}`}</DetailContent>
+                <DetailContent>{`$${data.retail_price}`}</DetailContent>
               </Detail>
-              <Detail>
+              <Detail isDisplay={data.release_date ? "flex" : "none"}>
                 <DetailTitle>Release date</DetailTitle>
-                <DetailContent>{details.releaseDate}</DetailContent>
+                <DetailContent>{releaseDate()}</DetailContent>
               </Detail>
             </DetailColumn>
-            <Description>
-              <p className="description">
-                {details.description?.split("\n").map((el) => (
-                  <div>
+            <Description isVisible={data.description ? "block" : "none"}>
+              <div className="description">
+                {data.description?.split("\n").map((el) => (
+                  <div key={el}>
                     {el}
                     <br />
                   </div>
                 ))}
-              </p>
+              </div>
               <button>read less</button>
             </Description>
           </ProductInfo>
         </div>
         <MarketSummary>
           <ul>
-            <li className="weekHighLow">
+            <li>
               <img
                 src="https://stockx-assets.imgix.net/svg/icons/gauge.svg?auto=compress,format"
                 alt="gauge"
               />
               <span>52 Week</span>
-              <div className="valueContainer">
-                <span>high $1,112</span>
-                <span>| low $180</span>
+              <div>
+                <span>{`high ${data["52week_high"]}`}</span>
+                <span>{` | low ${data["52week_low"]}`}</span>
               </div>
             </li>
-            <li className="tradeRange">
+            <li>
               <img
                 src="https://stockx-assets.imgix.net/svg/icons/chart.svg?auto=compress,format"
                 alt="bar chart"
               />
               <span>Trade Range (12 Mos.)</span>
-              <div className="valueContainer">
-                <Condition>
-                  $202 <span>-</span>$226
-                </Condition>
+              <div>
+                <Condition>{data.trade_range}</Condition>
               </div>
             </li>
-            <li className="volatility">
+            <li>
               <img
                 src="//stockx-assets.imgix.net/svg/icons/volatility.svg?auto=compress,format"
                 alt="volatility"
               />
               <span>Volatility</span>
-              <div className="valueContainer">
-                <Condition color="#ff5a5f">5.8%</Condition>
+              <div>
+                <Condition palette="#ff5a5f">{data.volatility}</Condition>
               </div>
             </li>
           </ul>
@@ -319,7 +403,7 @@ function ItemDetail() {
             <Banner>
               <div>related products</div>
             </Banner>
-            <Slider />
+            <Slider relatedProducts={data.related_products} />
           </Container>
         </RelatedProducts>
         <LatestSales>
@@ -329,7 +413,33 @@ function ItemDetail() {
             </Banner>
             <FlexCenter>
               <GraphWrapper>
-                <ChartSignUp />
+                <SalesChart sales={data.all_sale_list} />
+                <ChartWrapper>
+                  <ViewAllBtn onClick={() => handleSalesModal("sales history")}>
+                    View All Sales
+                  </ViewAllBtn>
+                  <SalesTable>
+                    <thead>
+                      <tr>
+                        <th>size</th>
+                        <th>sale price</th>
+                        <th>date</th>
+                        <th>time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.all_sale_list?.slice(0, 5).map((i, idx) => (
+                        <TR key={idx} idx={idx}>
+                          <td>{i.size}</td>
+                          <td>{`$${i.sale_price}`}</td>
+                          <td>{i.date}</td>
+                          <td>{`${i.time.split("+")[0].slice(0, 5)} EST`}</td>
+                        </TR>
+                      ))}
+                    </tbody>
+                  </SalesTable>
+                </ChartWrapper>
+                <ChartSignUp isLoggedin={isLoggedin} />
               </GraphWrapper>
               <History>
                 <HistoryHeader>
@@ -340,17 +450,24 @@ function ItemDetail() {
                   12 month historical
                 </HistoryHeader>
                 <HistoryTitle># of sales</HistoryTitle>
-                <HistoryNumber>13272</HistoryNumber>
+                <HistoryNumber>{data["#_of_sales"]}</HistoryNumber>
                 <HistoryTitle>price premium</HistoryTitle>
                 <HistorySubTitle>(over original retail price)</HistorySubTitle>
-                <HistoryNumber color="#ff5a5f">-1.0%</HistoryNumber>
+                <HistoryNumber
+                  palette={
+                    data.price_premium?.includes("-") ? "#ff5a5f" : "#08a05c"
+                  }
+                >
+                  {data.price_premium}
+                </HistoryNumber>
                 <HistoryTitle>average sale price</HistoryTitle>
-                <HistoryNumber>$236</HistoryNumber>
+                <HistoryNumber>{data.average_price}</HistoryNumber>
               </History>
             </FlexCenter>
           </Container>
         </LatestSales>
       </ProductContent>
+      <Footer />
     </>
   );
 }
@@ -383,6 +500,8 @@ const ButtonStyle = styled.div`
   padding: 4px 12px;
   border: 1px solid;
   border-radius: 20px;
+  background: ${({ bgColor }) => bgColor};
+  cursor: pointer;
 
   &:not(:last-child) {
     margin-right: 5px;
@@ -391,6 +510,7 @@ const ButtonStyle = styled.div`
   svg {
     width: 0.875em;
     margin-right: 4px;
+    color: ${({ svgColor }) => svgColor};
   }
 `;
 
@@ -398,6 +518,7 @@ const DropDownBtn = styled.button`
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
+  color: ${({ textColor }) => textColor};
 `;
 
 const Footage = styled.div`
@@ -411,10 +532,20 @@ const Footage = styled.div`
       color: ${({ theme }) => theme.colors.footage};
       font-size: 12px;
       text-transform: uppercase;
+      cursor: pointer;
+
+      a {
+        color: ${({ theme }) => theme.colors.footage};
+        text-decoration: none;
+      }
 
       &:not(:first-child)::before {
         content: "/";
         padding: 0 5px;
+      }
+
+      &::before {
+        cursor: default;
       }
     }
   }
@@ -451,7 +582,7 @@ const GreyText = styled.div`
 
 const Condition = styled.span`
   font-weight: 700;
-  color: ${({ color, theme }) => color || theme.colors.green};
+  color: ${({ palette, theme }) => palette || theme.colors.green};
 `;
 
 const DividerPipe = styled.span`
@@ -515,7 +646,8 @@ const FlexCenter = styled.div`
 `;
 
 const LastSaleSize = styled.span`
-  display: ${({ display }) => display || "block"};
+  display: ${({ isDisplayed }) => isDisplayed || "block"};
+  margin-top: 5px;
   font-size: 15px;
   font-weight: 600;
   text-transform: capitalize;
@@ -523,7 +655,7 @@ const LastSaleSize = styled.span`
 `;
 
 const SaleSizeDivider = styled.div`
-  display: ${({ display }) => display || "block"};
+  display: ${({ isDisplayed }) => isDisplayed || "block"};
   height: 12px;
   margin: 5px 10px;
   border-left: 1px solid #999;
@@ -566,14 +698,14 @@ const BtnTitle = styled.span`
 `;
 
 const BtnSubtitle = styled.span`
-  color: ${({ color }) => color || "#c6e6c2"};
+  color: ${({ palette }) => palette || "#c6e6c2"};
   font-size: 18px;
 `;
 
 const BtnDivider = styled.div`
   height: 55px;
   margin: 0 18px;
-  border-left: 1px solid ${({ color }) => color || "#348a28"};
+  border-left: 1px solid ${({ palette }) => palette || "#348a28"};
 `;
 
 const SaleValue = styled.div`
@@ -595,12 +727,12 @@ const Arrow = styled.span`
 `;
 
 const Difference = styled.div`
-  color: ${({ color }) => color || "#999"};
+  color: ${({ palette }) => palette || "#999"};
   font-weight: 600;
 `;
 
 const Percentage = styled.div`
-  color: ${({ color }) => color || "#999"};
+  color: ${({ palette }) => palette || "#999"};
   font-weight: 600;
 `;
 
@@ -610,24 +742,28 @@ const ProductMedia = styled.div`
 `;
 
 const AroundView = styled.div`
+  position: relative;
   ${({ theme }) => theme.flexColumnCenter};
   margin-bottom: 60px;
+  width: 100%;
 `;
 
 const ProductInfo = styled.div`
-  display: flex;
+  ${({ theme }) => theme.flexRowCenter};
+  justify-content: space-between;
   margin-top: 20px;
 `;
 
 const DetailColumn = styled.div`
-  ${({ theme }) => theme.flexColumn};
-  justify-content: flex-start;
-  width: 30%;
-  margin-right: 5%;
+  display: flex;
+  flex-direction: ${({ isColumn }) => (isColumn ? "column" : "row")};
+  justify-content: ${({ isColumn }) =>
+    isColumn ? "flex-start" : "space-around"};
+  width: ${({ isColumn }) => (isColumn ? "30%" : "100%")};
 `;
 
 const Detail = styled.div`
-  display: flex;
+  display: ${({ isDisplay }) => isDisplay || "flex"};
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.textBlack};
 `;
@@ -639,6 +775,7 @@ const DetailTitle = styled.div`
 `;
 
 const DetailContent = styled.div`
+  margin-left: 10px;
   text-transform: uppercase;
   font: 100 20px "Bebas Neue", cursive;
   white-space: nowrap;
@@ -649,6 +786,7 @@ const DetailContent = styled.div`
 `;
 
 const Description = styled.div`
+  display: ${({ isVisible }) => isVisible};
   width: 65%;
   margin-bottom: 20px;
   font-size: 17px;
@@ -688,6 +826,7 @@ const MarketSummary = styled.div`
       }
 
       span {
+        margin-left: 10px;
         text-transform: uppercase;
         letter-spacing: 1.2px;
       }
@@ -734,6 +873,7 @@ const Banner = styled.div`
 const LatestSales = styled.div`
   ${({ theme }) => theme.flexCenter};
   border-top: 1px solid #cecece;
+  margin-bottom: 50px;
   width: 100%;
 `;
 
@@ -741,6 +881,62 @@ const GraphWrapper = styled.div`
   position: relative;
   width: 66.66666667%;
   height: 532px;
+`;
+
+const ChartWrapper = styled.div`
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  background-color: #fff;
+  z-index: 2;
+`;
+
+const ViewAllBtn = styled.button`
+  margin: 25px 0 8px;
+  color: ${({ theme }) => theme.colors.green};
+  font: 500 16px;
+`;
+
+const SalesTable = styled.table`
+  display: table;
+  width: 100%;
+  margin-bottom: 22px;
+  border-spacing: 2px;
+
+  thead {
+    tr {
+      border-collapse: separate;
+      th {
+        padding: 5px;
+        border-bottom: 2px solid #ddd;
+        :center ;
+        font: 400 17px "Bebas Neue", cursive;
+        letter-spacing: 1px;
+
+        &:nth-of-type(1) {
+          width: 16.6%;
+        }
+        &:nth-of-type(2) {
+          width: 25%;
+        }
+        &:nth-of-type(3) {
+          width: 30%;
+        }
+        &:nth-of-type(4) {
+          width: 25%;
+        }
+      }
+    }
+  }
+`;
+
+const TR = styled.tr`
+  background-color: ${({ idx }) => (idx % 2 ? "#f9f9f9" : "#fff")};
+
+  td {
+    padding: 5px;
+    font: 600 13px;
+  }
 `;
 
 const History = styled.div`
@@ -784,8 +980,8 @@ const HistorySubTitle = styled.div`
 `;
 
 const HistoryNumber = styled.div`
-  padding-bottom: 22px;
-  color: ${({ color, theme }) => color || theme.colors.green};
+  padding: 22px 0 22px;
+  color: ${({ palette, theme }) => palette || theme.colors.green};
   font-size: 36px;
   font-weight: 600;
   text-transform: uppercase;
