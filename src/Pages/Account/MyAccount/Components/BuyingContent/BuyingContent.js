@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BUYING_CURRENT } from "../../../../../config";
-import BuyingTabs from "../BuyingTabs/BuyingTabs";
 import styled from "styled-components";
+import BuyingTabs from "../BuyingTabs/BuyingTabs";
+import { BUYING_CURRENT } from "../../../../../config";
 
 function BuyingContent() {
   const [products, setProducts] = useState([]);

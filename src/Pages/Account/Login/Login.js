@@ -1,7 +1,7 @@
 import React from "react";
+import styled from "styled-components";
 import Nav from "./Components/Nav/Nav";
 import Tab from "./Components/Tab/Tab";
-import styled from "styled-components";
 
 function Login() {
   return (

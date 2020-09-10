@@ -1,6 +1,6 @@
 import React from "react";
-import SellingTabs from "../SellingTabs/SellingTabs";
 import styled from "styled-components";
+import SellingTabs from "../SellingTabs/SellingTabs";
 
 function SellingContent() {
   return (

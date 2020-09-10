@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import SidebarNav from "./Components/SidebarNav/SidebarNav";
 import BuyingContent from "./Components/BuyingContent/BuyingContent";
 import SellingContent from "./Components/SellingContent/SellingContent";
-import styled from "styled-components";
 
 function MyAccount() {
   const [activeTab, setActiveTab] = useState("Buying");

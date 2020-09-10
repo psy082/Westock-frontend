@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { API_LOGIN } from "../../../../../config";
-import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import { API_LOGIN } from "../../../../../config";
 
 function LoginContent() {
   const [email, setEmail] = useState("");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import SvgSearch from "../SvgSearch/SvgSearch";
 import SvgSortSelling from "../SvgSort/SvgSortSelling";
-import styled from "styled-components";
 
 function SellingTabs() {
   const [isActive, setActive] = useState(0);

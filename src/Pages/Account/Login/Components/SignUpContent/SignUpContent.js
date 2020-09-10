@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { API_REGISTER } from "../../../../../config";
-import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import { API_REGISTER } from "../../../../../config";
 
 function SignUpContent() {
   const [first_name, setFirstname] = useState("");
@@ -12,17 +12,6 @@ function SignUpContent() {
   const [checked, setCheck] = useState(false);
 
   let history = useHistory();
-  // state = {
-  //   first_name: "",
-  //   last_name: "",
-  //   email: "",
-  //   password: "",
-  //   checked: false,
-  // };
-
-  // const handleOnChange = (e) => {
-  //   setState({ [e.target.name]: e.target.value });
-  // };
 
   const handleOnclick = () => {
     if (checked === false) {
@@ -49,10 +38,6 @@ function SignUpContent() {
         console.log(response);
       });
   };
-
-  // const handleCheckBox = () => {
-  //   this.setState({ checked: !this.state.checked });
-  // };
 
   const handleCheckBox = () => {
     setCheck(!checked);

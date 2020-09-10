@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import SvgSortBuying from "../SvgSort/SvgSortBuying";
 import BuyingCurrentList from "../BuyingCurrentList/BuyingCurrentList";
-import styled from "styled-components";
 
 function BuyingTabs(props) {
   const [isActive, setActive] = useState(0);
 
-  // handleOnClick = (id) => {
-  //   this.setState({ isActive: id });
-  // };
-
-  // const { products } = this.props;
   return (
     <BuyingTabsComp>
       <ProcessTab>
