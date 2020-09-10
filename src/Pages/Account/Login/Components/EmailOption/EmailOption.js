@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
-class EmailOption extends Component {
-  render() {
-    return (
-      <OptionEmail>
-        <BottomBorder />
-        <CenterText>OR</CenterText>
-        <BottomBorder />
-      </OptionEmail>
-    );
-  }
+function EmailOption() {
+  return (
+    <OptionEmail>
+      <BottomBorder />
+      <CenterText>OR</CenterText>
+      <BottomBorder />
+    </OptionEmail>
+  );
 }
 
 const OptionEmail = styled.div`

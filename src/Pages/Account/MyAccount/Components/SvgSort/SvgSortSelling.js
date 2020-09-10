@@ -1,20 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
-class SvgSortSelling extends Component {
-  render() {
-    return (
-      <SvgSortSellingComp
-        version="1.1"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-      >
-        <path fill="#444" d="M11 7H5l3-4z" />
-        <path fill="#444" d="M5 9h6l-3 4z" />
-      </SvgSortSellingComp>
-    );
-  }
+function SvgSortSelling() {
+  return (
+    <SvgSortSellingComp
+      version="1.1"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+    >
+      <path fill="#444" d="M11 7H5l3-4z" />
+      <path fill="#444" d="M5 9h6l-3 4z" />
+    </SvgSortSellingComp>
+  );
 }
 
 const SvgSortSellingComp = styled.svg`

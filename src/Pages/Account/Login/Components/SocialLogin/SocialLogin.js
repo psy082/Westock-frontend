@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import React from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { API_LOGIN, GOOGLE_KEY } from "../../../../../config";
 import { GoogleLogin } from "react-google-login";
+=======
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { JS_KEY } from "../../../../../config";
+import { API_KAKAO_LOGIN } from "../../../../../config";
+>>>>>>> 7cff373... [송다슬] Refactor: Convert class components to functional components(Hooks)
 import SocialIconGoogle from "../SocialLoginIcon/SocialIconGoogle";
 import SocialIconGithub from "../SocialLoginIcon/SocialIconGithub";
 import SocialIconFacebook from "../SocialLoginIcon/SocialIconFacebook";
@@ -10,6 +17,7 @@ import { kakaoApi } from "./ApiProcess/ApiProcess";
 import styled from "styled-components";
 
 function SocialLogin() {
+<<<<<<< HEAD
   const history = useHistory();
   return (
     <SocialLoginWrapper>
@@ -27,6 +35,42 @@ function SocialLogin() {
           setToken(access_token, "google", history)
         }
       />
+=======
+  let history = useHistory();
+  const loginWithKakao = () => {
+    window.Kakao.Auth.login({
+      success: (authObj) => {
+        console.log(authObj);
+        fetch(`${API_KAKAO_LOGIN}`, {
+          method: "POST",
+          headers: {
+            Authorization: authObj.access_token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res.ACCESS_TOKEN);
+            localStorage.setItem("ACCESS_TOKEN", res.ACCESS_TOKEN);
+            alert("로그인에 성공하였습니다");
+            history.push("/");
+          });
+      },
+    });
+  };
+
+  useEffect(() => {
+    window.Kakao.init(JS_KEY);
+    console.log(window.Kakao.isInitialized());
+    console.log(window.Kakao);
+  }, []);
+
+  return (
+    <SocialLoginWrapper>
+      <Button>
+        <SocialIconGoogle />
+        Continue with Google
+      </Button>
+>>>>>>> 7cff373... [송다슬] Refactor: Convert class components to functional components(Hooks)
       <Button>
         <SocialIconGithub />
         Continue with Github
@@ -35,7 +79,11 @@ function SocialLogin() {
         <SocialIconFacebook />
         Continue with Facebook
       </Button>
+<<<<<<< HEAD
       <Button onClick={() => kakaoApi(setToken, history)}>
+=======
+      <Button onClick={() => loginWithKakao()}>
+>>>>>>> 7cff373... [송다슬] Refactor: Convert class components to functional components(Hooks)
         <SocialIconKakao />
         Continue with KakaoTalk
       </Button>
@@ -63,6 +111,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+<<<<<<< HEAD
 const setToken = (access_token, sns, history) => {
   console.log(access_token, sns);
   fetch(`${API_LOGIN}/${sns}`, {
@@ -80,3 +129,6 @@ const setToken = (access_token, sns, history) => {
 };
 
 export default withRouter(SocialLogin);
+=======
+export default SocialLogin;
+>>>>>>> 7cff373... [송다슬] Refactor: Convert class components to functional components(Hooks)

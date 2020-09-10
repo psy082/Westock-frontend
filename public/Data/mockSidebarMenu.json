@@ -1,0 +1,44 @@
+{
+  "sidebarMenus": [
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/security.svg?auto=compress,format",
+      "sidebarTitle": "Security",
+      "sidebarDescription": "Two-Step Verification"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/buying.svg?auto=compress,format",
+      "sidebarTitle": "Buying",
+      "sidebarDescription": "Active Bids, In-Progress, Completed Orders"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/account_menu/selling.svg?auto=compress,format",
+      "sidebarTitle": "Selling",
+      "sidebarDescription": "Active Asks, In-Progress, Completed Sales"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/account_menu/profile.svg?auto=compress,format",
+      "sidebarTitle": "Profile",
+      "sidebarDescription": "Learn what's unique to you"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/account_menu/portfolio.svg?auto=compress,format",
+      "sidebarTitle": "Portfolio",
+      "sidebarDescription": "See the value of your items"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/account_menu/following.svg?auto=compress,format",
+      "sidebarTitle": "Following",
+      "sidebarDescription": "Products you're watching"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/account_menu/settings.svg?auto=compress,format",
+      "sidebarTitle": "Settings",
+      "sidebarDescription": "Payments, Payouts, Addresses"
+    },
+    {
+      "sidebarImg": "https://stockx-assets.imgix.net/png/icons/logout.svg?auto=compress,format",
+      "sidebarTitle": "Log Out",
+      "sidebarDescription": ""
+    }
+  ]
+}

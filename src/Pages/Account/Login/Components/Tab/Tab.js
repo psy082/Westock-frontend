@@ -1,46 +1,32 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SignUpContent from "../SignUpContent/SignUpContent";
 import LoginContent from "../LogInContent/LoginContent";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import EmailOption from "../EmailOption/EmailOption";
 
-class Tab extends Component {
-  state = {
-    activeTab: 0,
-  };
+function Tab() {
+  const [activeTab, setActiveTab] = useState(0);
 
-  handleOnClick = (id) => {
-    this.setState({ activeTab: id });
-  };
-
-  render() {
-    return (
-      <>
-        <TabWrapper>
-          <Button
-            onClick={() => this.handleOnClick(0)}
-            clicked={this.state.activeTab === 0}
-          >
-            Sign Up
-          </Button>
-          <Button
-            onClick={() => this.handleOnClick(1)}
-            clicked={this.state.activeTab === 1}
-          >
-            Log In
-          </Button>
-        </TabWrapper>
-        <SocialLoginContainer>
-          <SocialLogin />
-          <EmailOption />
-        </SocialLoginContainer>
-        <Contents>
-          {this.state.activeTab === 0 ? <SignUpContent /> : <LoginContent />}
-        </Contents>
-      </>
-    );
-  }
+  return (
+    <>
+      <TabWrapper>
+        <Button onClick={() => setActiveTab(0)} clicked={activeTab === 0}>
+          Sign Up
+        </Button>
+        <Button onClick={() => setActiveTab(1)} clicked={activeTab === 1}>
+          Log In
+        </Button>
+      </TabWrapper>
+      <SocialLoginContainer>
+        <SocialLogin />
+        <EmailOption />
+      </SocialLoginContainer>
+      <Contents>
+        {activeTab === 0 ? <SignUpContent /> : <LoginContent />}
+      </Contents>
+    </>
+  );
 }
 
 const TabWrapper = styled.div`

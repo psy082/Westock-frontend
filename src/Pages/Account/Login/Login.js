@@ -1,23 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import Nav from "./Components/Nav/Nav";
 import Tab from "./Components/Tab/Tab";
 import styled from "styled-components";
 
-class Login extends Component {
-  render() {
-    return (
-      <>
-        <Nav />
-        <LoginPage>
-          <LoginWrapper>
-            <LoginBody>
-              <Tab />
-            </LoginBody>
-          </LoginWrapper>
-        </LoginPage>
-      </>
-    );
-  }
+function Login() {
+  return (
+    <>
+      <Nav />
+      <LoginPage>
+        <LoginWrapper>
+          <LoginBody>
+            <Tab />
+          </LoginBody>
+        </LoginWrapper>
+      </LoginPage>
+    </>
+  );
 }
 
 const LoginPage = styled.div`

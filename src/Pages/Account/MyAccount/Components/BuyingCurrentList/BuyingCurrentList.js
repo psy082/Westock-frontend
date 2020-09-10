@@ -1,40 +1,38 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
-class BuyingCurrentList extends Component {
-  render() {
-    const {
-      image_url,
-      product_name,
-      product_size_id,
-      product_style,
-      price,
-      highest_bid,
-      lowest_ask,
-      expired_date,
-    } = this.props;
+function BuyingCurrentList(props) {
+  const {
+    image_url,
+    product_name,
+    product_size_id,
+    product_style,
+    price,
+    highest_bid,
+    lowest_ask,
+    expired_date,
+  } = props;
 
-    return (
-      <tr>
-        <Td className="Item">
-          <Div className="ItemWrapper">
-            <Img alt="item-image" src={image_url} />
-            <Div className="Item__description">
-              <Div className="Item__name">{product_name}</Div>
-              <Div className="Item__spanWrapper">
-                <Span className="Item__size">{product_size_id}</Span>
-                <Span className="Item__style_id">{product_style}</Span>
-              </Div>
+  return (
+    <tr>
+      <Td className="Item">
+        <Div className="ItemWrapper">
+          <Img alt="item-image" src={image_url} />
+          <Div className="Item__description">
+            <Div className="Item__name">{product_name}</Div>
+            <Div className="Item__spanWrapper">
+              <Span className="Item__size">{product_size_id}</Span>
+              <Span className="Item__style_id">{product_style}</Span>
             </Div>
           </Div>
-        </Td>
-        <Td className="Bid-price">{price}</Td>
-        <Td className="Highest-bid">${highest_bid}</Td>
-        <Td className="Lowest-ask">$150</Td>
-        <Td classNane="Expires">{expired_date}</Td>
-      </tr>
-    );
-  }
+        </Div>
+      </Td>
+      <Td className="Bid-price">{`$${price.split(".")[0]}`}</Td>
+      <Td className="Highest-bid">{`$${highest_bid.split(".")[0]}`}</Td>
+      <Td className="Lowest-ask">$150</Td>
+      <Td classNane="Expires">{expired_date}</Td>
+    </tr>
+  );
 }
 
 const Td = styled.td`

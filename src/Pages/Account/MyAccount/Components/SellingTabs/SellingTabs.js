@@ -1,85 +1,77 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import SvgSearch from "../SvgSearch/SvgSearch";
 import SvgSortSelling from "../SvgSort/SvgSortSelling";
 import styled from "styled-components";
 
-class SellingTabs extends Component {
-  state = {
-    isActive: 0,
-  };
+function SellingTabs() {
+  const [isActive, setActive] = useState(0);
 
-  handleOnClick = (id) => {
-    this.setState({ isActive: id });
-  };
-
-  render() {
-    return (
-      <SellingTabsComp>
-        <ProcessTab>
-          <TabList>
-            <ListElement isActive="">
-              <A clicked={this.state.isActive === 0}>
-                <Span>current</Span>
-              </A>
-            </ListElement>
-            <ListElement isActive="">
-              <A clicked={this.state.isActive === 1}>
-                <Span>pending</Span>
-              </A>
-            </ListElement>
-            <ListElement isActive="">
-              <A>
-                <Span>history</Span>
-              </A>
-            </ListElement>
-          </TabList>
-          <TabPanel>
-            <Notice>
-              <P>
-                Due to COVID-19, please allow 1 to 2 weeks for us to send your
-                payout.
-              </P>
-            </Notice>
-          </TabPanel>
-          <SearchWrapper>
-            <SvgSearch />
-            <SearchBar placeholder="Search name" type="text" />
-          </SearchWrapper>
-          <TableListWrapper>
-            <Thead>
-              <Tr>
-                <TableList>
-                  Item
-                  <SvgSortSelling />
-                </TableList>
-                <TableList>
-                  Ask Price
-                  <SvgSortSelling />
-                </TableList>
-                <TableList>
-                  Highest Bid
-                  <SvgSortSelling />
-                </TableList>
-                <TableList>
-                  Lowest Ask
-                  <SvgSortSelling />
-                </TableList>
-                <TableList>
-                  Spread
-                  <SvgSortSelling />
-                </TableList>
-                <TableList>
-                  Expires
-                  <SvgSortSelling />
-                </TableList>
-                <TableList />
-              </Tr>
-            </Thead>
-          </TableListWrapper>
-        </ProcessTab>
-      </SellingTabsComp>
-    );
-  }
+  return (
+    <SellingTabsComp>
+      <ProcessTab>
+        <TabList>
+          <ListElement isActive="">
+            <A clicked={setActive === 0}>
+              <Span>current</Span>
+            </A>
+          </ListElement>
+          <ListElement isActive="">
+            <A clicked={setActive === 1}>
+              <Span>pending</Span>
+            </A>
+          </ListElement>
+          <ListElement isActive="">
+            <A>
+              <Span>history</Span>
+            </A>
+          </ListElement>
+        </TabList>
+        <TabPanel>
+          <Notice>
+            <P>
+              Due to COVID-19, please allow 1 to 2 weeks for us to send your
+              payout.
+            </P>
+          </Notice>
+        </TabPanel>
+        <SearchWrapper>
+          <SvgSearch />
+          <SearchBar placeholder="Search name" type="text" />
+        </SearchWrapper>
+        <TableListWrapper>
+          <Thead>
+            <Tr>
+              <TableList>
+                Item
+                <SvgSortSelling />
+              </TableList>
+              <TableList>
+                Ask Price
+                <SvgSortSelling />
+              </TableList>
+              <TableList>
+                Highest Bid
+                <SvgSortSelling />
+              </TableList>
+              <TableList>
+                Lowest Ask
+                <SvgSortSelling />
+              </TableList>
+              <TableList>
+                Spread
+                <SvgSortSelling />
+              </TableList>
+              <TableList>
+                Expires
+                <SvgSortSelling />
+              </TableList>
+              <TableList />
+            </Tr>
+          </Thead>
+        </TableListWrapper>
+      </ProcessTab>
+    </SellingTabsComp>
+  );
 }
 const SellingTabsComp = styled.div``;
 

@@ -1,41 +1,39 @@
-import React, { Component } from "react";
+import React from "react";
 import SellingTabs from "../SellingTabs/SellingTabs";
 import styled from "styled-components";
 
-class SellingContent extends Component {
-  render() {
-    return (
-      <SellingContentComp>
-        <SellerStats>
-          <Stat>
-            <div>
-              <Img
-                alt="icon_sales"
-                src="https://stockx-assets.imgix.net/svg/icons/chart-blue.svg?auto=compress,format"
-              />
-            </div>
-            <div>
-              <H3>sales</H3>
-              <H2>--</H2>
-            </div>
-          </Stat>
-          <Stat>
-            <div>
-              <Img
-                alt="icon_sales#"
-                src="https://stockx-assets.imgix.net/svg/icons/tag.svg?auto=compress,format"
-              />
-            </div>
-            <div>
-              <H3>sales (#)</H3>
-              <H2>--</H2>
-            </div>
-          </Stat>
-        </SellerStats>
-        <SellingTabs />
-      </SellingContentComp>
-    );
-  }
+function SellingContent() {
+  return (
+    <SellingContentComp>
+      <SellerStats>
+        <Stat>
+          <div>
+            <Img
+              alt="icon_sales"
+              src="https://stockx-assets.imgix.net/svg/icons/chart-blue.svg?auto=compress,format"
+            />
+          </div>
+          <div>
+            <H3>sales</H3>
+            <H2>--</H2>
+          </div>
+        </Stat>
+        <Stat>
+          <div>
+            <Img
+              alt="icon_sales#"
+              src="https://stockx-assets.imgix.net/svg/icons/tag.svg?auto=compress,format"
+            />
+          </div>
+          <div>
+            <H3>sales (#)</H3>
+            <H2>--</H2>
+          </div>
+        </Stat>
+      </SellerStats>
+      <SellingTabs />
+    </SellingContentComp>
+  );
 }
 
 const SellingContentComp = styled.div`
