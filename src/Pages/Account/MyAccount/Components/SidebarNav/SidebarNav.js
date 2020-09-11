@@ -1,33 +1,31 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-class SidebarNav extends Component {
-  render() {
-    const {
-      sidebarImg,
-      sidebarTitle,
-      sidebarDescription,
-      activeTab,
-      handleOnClick,
-    } = this.props;
+function SidebarNav(props) {
+  const {
+    sidebarImg,
+    sidebarTitle,
+    sidebarDescription,
+    activeTab,
+    handleOnClick,
+  } = props;
 
-    return (
-      <SidebarNavComp
-        onClick={() => handleOnClick(sidebarTitle)}
-        clicked={activeTab === sidebarTitle}
-      >
-        <Link to="/account" />
-        <MenuItemWrapper>
-          <LeftImg alt="icon" src={sidebarImg} />
-          <RightContent>
-            <MenuTitle>{sidebarTitle}</MenuTitle>
-            <MenuDescription>{sidebarDescription}</MenuDescription>
-          </RightContent>
-        </MenuItemWrapper>
-      </SidebarNavComp>
-    );
-  }
+  return (
+    <SidebarNavComp
+      onClick={() => handleOnClick(sidebarTitle)}
+      clicked={activeTab === sidebarTitle}
+    >
+      <Link to="/account" />
+      <MenuItemWrapper>
+        <LeftImg alt="icon" src={sidebarImg} />
+        <RightContent>
+          <MenuTitle>{sidebarTitle}</MenuTitle>
+          <MenuDescription>{sidebarDescription}</MenuDescription>
+        </RightContent>
+      </MenuItemWrapper>
+    </SidebarNavComp>
+  );
 }
 
 const SidebarNavComp = styled.div`

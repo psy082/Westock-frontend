@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
-class Nav extends Component {
-  render() {
-    return (
-      <Navbar>
-        <NavLogo
-          alt="logo"
-          src="https://stockx-assets.imgix.net/logo/stockx_homepage_logo_dark.svg?auto=compress,format"
-        />
-      </Navbar>
-    );
-  }
+function Nav() {
+  return (
+    <Navbar>
+      <NavLogo
+        alt="logo"
+        src="https://stockx-assets.imgix.net/logo/stockx_homepage_logo_dark.svg?auto=compress,format"
+      />
+    </Navbar>
+  );
 }
 
 const Navbar = styled.div`

@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import { BUYING_CURRENT } from "../../../../../config";
-import BuyingTabs from "../BuyingTabs/BuyingTabs";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import BuyingTabs from "../BuyingTabs/BuyingTabs";
+import { BUYING_CURRENT } from "../../../../../config";
 
-class BuyingContent extends Component {
-  state = {
-    products: [],
-  };
+function BuyingContent() {
+  const [products, setProducts] = useState([]);
 
-  componentDidMount = () => {
+  useEffect(() => {
     fetch(`${BUYING_CURRENT}`, {
       headers: {
         Authorization: localStorage.getItem("ACCESS_TOKEN"),
@@ -16,45 +14,43 @@ class BuyingContent extends Component {
     })
       .then((response) => response.json())
       .then(({ BUYING_INFOS }) => {
-        this.setState({ products: BUYING_INFOS }, () => {
-          console.log(this.state.products);
+        setProducts({ products: BUYING_INFOS }, () => {
+          console.log(products);
         });
       });
-  };
+  }, []);
 
-  render() {
-    return (
-      <BuyingContentComp>
-        <BuyerStats>
-          <Stat>
-            <div>
-              <Img
-                alt="icon_purchasing"
-                src="https://stockx-assets.imgix.net/svg/icons/chart-blue.svg?auto=compress,format"
-              />
-            </div>
-            <div>
-              <H3>purchasing</H3>
-              <H2>--</H2>
-            </div>
-          </Stat>
-          <Stat>
-            <div>
-              <Img
-                alt="icon_purchasing#"
-                src="https://stockx-assets.imgix.net/svg/icons/tag.svg?auto=compress,format"
-              />
-            </div>
-            <div>
-              <H3>purchasing (#)</H3>
-              <H2>--</H2>
-            </div>
-          </Stat>
-        </BuyerStats>
-        <BuyingTabs products={this.state.products} />
-      </BuyingContentComp>
-    );
-  }
+  return (
+    <BuyingContentComp>
+      <BuyerStats>
+        <Stat>
+          <div>
+            <Img
+              alt="icon_purchasing"
+              src="https://stockx-assets.imgix.net/svg/icons/chart-blue.svg?auto=compress,format"
+            />
+          </div>
+          <div>
+            <H3>purchasing</H3>
+            <H2>--</H2>
+          </div>
+        </Stat>
+        <Stat>
+          <div>
+            <Img
+              alt="icon_purchasing#"
+              src="https://stockx-assets.imgix.net/svg/icons/tag.svg?auto=compress,format"
+            />
+          </div>
+          <div>
+            <H3>purchasing (#)</H3>
+            <H2>--</H2>
+          </div>
+        </Stat>
+      </BuyerStats>
+      <BuyingTabs products={products} />
+    </BuyingContentComp>
+  );
 }
 
 const BuyingContentComp = styled.div`

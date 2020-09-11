@@ -1,39 +1,37 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { API_REGISTER } from "../../../../../config";
-import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import { API_REGISTER } from "../../../../../config";
 
-class SignUpContent extends Component {
-  state = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    checked: false,
-  };
+function SignUpContent() {
+  const [first_name, setFirstname] = useState("");
+  const [last_name, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checked, setCheck] = useState(false);
 
-  handleOnChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  let history = useHistory();
 
-  handleOnclick = () => {
-    this.setState({ checked: !this.state.checked });
-    console.log(this.state.first_name, this.state.last_name);
+  const handleOnclick = () => {
+    if (checked === false) {
+      alert("회원가입 약관에 필수동의를 체크해주세요");
+      history.push("/account/login");
+    }
     fetch(`${API_REGISTER}`, {
       method: "POST",
       body: JSON.stringify({
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        password: this.state.password,
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        password: password,
       }),
     })
       .then((response) => response.json())
       .then((response) => {
         if (response.MESSAGE === "SUCCESS") {
           alert("회원가입 성공");
-          this.props.history.push("/account/login");
+          history.push("/account/login");
         } else {
           alert("회원가입 실패");
         }
@@ -41,66 +39,67 @@ class SignUpContent extends Component {
       });
   };
 
-  render() {
-    return (
-      <>
-        <LoginForm>
-          <FormRow>
-            <Input
-              onChange={this.handleOnChange}
-              name="first_name"
-              placeholder="First Name"
+  const handleCheckBox = () => {
+    setCheck(!checked);
+  };
+  return (
+    <>
+      <LoginForm>
+        <FormRow>
+          <Input
+            onChange={(e) => setFirstname(e.target.value)}
+            name="first_name"
+            placeholder="First Name"
+          />
+        </FormRow>
+        <FormRow>
+          <Input
+            onChange={(e) => setLastname(e.target.value)}
+            name="last_name"
+            placeholder="Last Name"
+          />
+        </FormRow>
+        <FormRow>
+          <Input
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            type="email"
+            placeholder="Email Address"
+          />
+        </FormRow>
+        <FormRow>
+          <PasswordWrapper>
+            <PasswordInput
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              type="password"
+              placeholder="Password"
             />
-          </FormRow>
-          <FormRow>
-            <Input
-              onChange={this.handleOnChange}
-              name="last_name"
-              placeholder="Last Name"
-            />
-          </FormRow>
-          <FormRow>
-            <Input
-              onChange={this.handleOnChange}
-              name="email"
-              type="email"
-              placeholder="Email Address"
-            />
-          </FormRow>
-          <FormRow>
-            <PasswordWrapper>
-              <PasswordInput
-                onChange={this.handleOnChange}
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-              <PasswordToggle>
-                <EyeSlash />
-              </PasswordToggle>
-            </PasswordWrapper>
-          </FormRow>
-        </LoginForm>
-        <Div>
-          <ButtonForgotPw>
-            <PasswordText>
-              At least 8 characters, 1 uppercase letter, 1 number & 1 symbol
-            </PasswordText>
-          </ButtonForgotPw>
-        </Div>
-        <TermsWrapper>
-          <TermsCheckBox />
-          <CheckMark checked={this.state.checked} />
-          <TermsText>
-            By signing up, you agree to the&nbsp;<Span>Terms of Service</Span>
-            &nbsp; and<br></br>
-            <Span>Privacy Policy</Span>
-          </TermsText>
-        </TermsWrapper>
-        <ButtonSignUp onClick={this.handleOnclick}>Sign Up</ButtonSignUp>
-      </>
-    );
-  }
+            <PasswordToggle>
+              <EyeSlash />
+            </PasswordToggle>
+          </PasswordWrapper>
+        </FormRow>
+      </LoginForm>
+      <Div>
+        <ButtonForgotPw>
+          <PasswordText>
+            At least 8 characters, 1 uppercase letter, 1 number & 1 symbol
+          </PasswordText>
+        </ButtonForgotPw>
+      </Div>
+      <TermsWrapper>
+        <TermsCheckBox />
+        <CheckMark checked={checked} onClick={() => handleCheckBox()} />
+        <TermsText>
+          By signing up, you agree to the&nbsp;<Span>Terms of Service</Span>
+          &nbsp; and<br></br>
+          <Span>Privacy Policy</Span>
+        </TermsText>
+      </TermsWrapper>
+      <ButtonSignUp onClick={() => handleOnclick}>Sign Up</ButtonSignUp>
+    </>
+  );
 }
 
 const LoginForm = styled.div`
@@ -239,4 +238,4 @@ const ButtonSignUp = styled.button`
   letter-spacing: 0.5px;
 `;
 
-export default withRouter(SignUpContent);
+export default SignUpContent;

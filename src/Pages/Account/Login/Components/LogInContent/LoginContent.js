@@ -1,20 +1,16 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { API_LOGIN } from "../../../../../config";
-import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import EyeSlash from "../../Components/SocialLoginIcon/EyeSlash";
+import { API_LOGIN } from "../../../../../config";
 
-class LoginContent extends Component {
-  state = {
-    email: "",
-    password: "",
-  };
+function LoginContent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  handleOnChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  let history = useHistory();
 
-  handleOnclick = (e) => {
+  const handleOnclick = (e) => {
     fetch(`${API_LOGIN}`, {
       method: "POST",
       body: JSON.stringify({
@@ -28,53 +24,50 @@ class LoginContent extends Component {
           alert("로그인 성공");
           console.log(response);
           sessionStorage.setItem("ACCESS_TOKEN", response.ACCESS_TOKEN);
-          this.props.history.push("/");
+          history.push("/");
         } else {
           alert("로그인 실패");
         }
       });
   };
 
-  render() {
-    console.log(this.state);
-    return (
-      <>
-        <LoginForm>
-          <FormRow>
-            <EmailLoginInput
-              onChange={this.handleOnChange}
-              name="email"
-              placeholder="Email Address"
+  return (
+    <>
+      <LoginForm>
+        <FormRow>
+          <EmailLoginInput
+            onChange={(e) => setEmail(e.target.value)}
+            name={email}
+            placeholder="Email Address"
+          />
+        </FormRow>
+        <FormRow>
+          <PasswordWrapper>
+            <PasswordLoginInput
+              onChange={(e) => setPassword(e.target.value)}
+              name={password}
+              type="password"
+              placeholder="Password"
             />
-          </FormRow>
-          <FormRow>
-            <PasswordWrapper>
-              <PasswordLoginInput
-                onChange={this.handleOnChange}
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-              <PasswordToggle>
-                <EyeSlash />
-              </PasswordToggle>
-            </PasswordWrapper>
-          </FormRow>
-        </LoginForm>
-        <Div>
-          <ButtonForgotPw>Forgot Password?</ButtonForgotPw>
-        </Div>
-        <ButtonLogin onClick={this.handleOnclick}>Log In</ButtonLogin>
-        <TermsContainer>
-          <TermsForm>
-            By loggin in, you agree to the&nbsp;<P>Terms of Service</P>&nbsp;
-            and&nbsp;
-            <P>Privacy Policy</P>
-          </TermsForm>
-        </TermsContainer>
-      </>
-    );
-  }
+            <PasswordToggle>
+              <EyeSlash />
+            </PasswordToggle>
+          </PasswordWrapper>
+        </FormRow>
+      </LoginForm>
+      <Div>
+        <ButtonForgotPw>Forgot Password?</ButtonForgotPw>
+      </Div>
+      <ButtonLogin onClick={handleOnclick}>Log In</ButtonLogin>
+      <TermsContainer>
+        <TermsForm>
+          By loggin in, you agree to the&nbsp;<P>Terms of Service</P>&nbsp;
+          and&nbsp;
+          <P>Privacy Policy</P>
+        </TermsForm>
+      </TermsContainer>
+    </>
+  );
 }
 
 const LoginForm = styled.div`
@@ -162,4 +155,4 @@ const P = styled.p`
   font-weight: bold;
 `;
 
-export default withRouter(LoginContent);
+export default LoginContent;

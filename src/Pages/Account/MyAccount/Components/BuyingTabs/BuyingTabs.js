@@ -1,112 +1,102 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import SvgSortBuying from "../SvgSort/SvgSortBuying";
 import BuyingCurrentList from "../BuyingCurrentList/BuyingCurrentList";
-import styled from "styled-components";
 
-class BuyingTabs extends Component {
-  state = {
-    isActive: 0,
-  };
+function BuyingTabs(props) {
+  const [isActive, setActive] = useState(0);
 
-  handleOnClick = (id) => {
-    this.setState({ isActive: id });
-  };
-
-  render() {
-    const { products } = this.props;
-    console.log(products);
-    return (
-      <BuyingTabsComp>
-        <ProcessTab>
-          <TabList>
-            <ListElement isActive="">
-              <A clicked={this.state.isActive === 0}>
-                <Span>current</Span>
-              </A>
-            </ListElement>
-            <ListElement isActive="">
-              <A clicked={this.state.isActive === 1}>
-                <Span>pending</Span>
-              </A>
-            </ListElement>
-            <ListElement isActive="">
-              <A>
-                <Span>history</Span>
-              </A>
-            </ListElement>
-          </TabList>
-          <TabPanel>
-            <Notice>
-              <P>
-                Due to COVID-19, please allow 2 to 3 weeks for processing &
-                delivery.
-              </P>
-            </Notice>
-          </TabPanel>
-          <SearchWrapper>
-            <SearchForm>
-              <SearchBtn placeholder="Search" type="submit" value="Search" />
-              <SearchBar placeholder="Search name" type="text" />
-            </SearchForm>
-          </SearchWrapper>
-          <Table>
-            <thead>
-              <tr>
-                <Th>
-                  Item
-                  <SvgSortBuying />
-                </Th>
-                <Th>
-                  Bid Price
-                  <SvgSortBuying />
-                </Th>
-                <Th>
-                  Highest Bid
-                  <SvgSortBuying />
-                </Th>
-                <Th>
-                  Lowest Ask
-                  <SvgSortBuying />
-                </Th>
-                <Th>
-                  Expires
-                  <SvgSortBuying />
-                </Th>
-              </tr>
-            </thead>
-            {products && (
-              <tbody>
-                {products.map(
-                  ({
-                    image_url,
-                    product_name,
-                    product_size_id,
-                    product_style,
-                    price,
-                    highest_bid,
-                    lowest_ask,
-                    expired_date,
-                  }) => (
-                    <BuyingCurrentList
-                      key={image_url}
-                      image_url={image_url}
-                      product_name={product_name}
-                      product_size_id={product_size_id}
-                      product_style={product_style}
-                      price={price}
-                      highest_bid={highest_bid}
-                      lowest_ask={lowest_ask}
-                      expired_date={expired_date}
-                    />
-                  )
-                )}
-              </tbody>
-            )}
-          </Table>
-        </ProcessTab>
-      </BuyingTabsComp>
-    );
-  }
+  return (
+    <BuyingTabsComp>
+      <ProcessTab>
+        <TabList>
+          <ListElement isActive="">
+            <A clicked={setActive === 0}>
+              <Span>current</Span>
+            </A>
+          </ListElement>
+          <ListElement isActive="">
+            <A clicked={setActive === 1}>
+              <Span>pending</Span>
+            </A>
+          </ListElement>
+          <ListElement isActive="">
+            <A>
+              <Span>history</Span>
+            </A>
+          </ListElement>
+        </TabList>
+        <TabPanel>
+          <Notice>
+            <P>
+              Due to COVID-19, please allow 2 to 3 weeks for processing &
+              delivery.
+            </P>
+          </Notice>
+        </TabPanel>
+        <SearchWrapper>
+          <SearchForm>
+            <SearchBtn placeholder="Search" type="submit" value="Search" />
+            <SearchBar placeholder="Search name" type="text" />
+          </SearchForm>
+        </SearchWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <Th>
+                Item
+                <SvgSortBuying />
+              </Th>
+              <Th>
+                Bid Price
+                <SvgSortBuying />
+              </Th>
+              <Th>
+                Highest Bid
+                <SvgSortBuying />
+              </Th>
+              <Th>
+                Lowest Ask
+                <SvgSortBuying />
+              </Th>
+              <Th>
+                Expires
+                <SvgSortBuying />
+              </Th>
+            </tr>
+          </thead>
+          {props.products && (
+            <tbody>
+              {props.products.map(
+                ({
+                  image_url,
+                  product_name,
+                  product_size_id,
+                  product_style,
+                  price,
+                  highest_bid,
+                  lowest_ask,
+                  expired_date,
+                }) => (
+                  <BuyingCurrentList
+                    key={image_url}
+                    image_url={image_url}
+                    product_name={product_name}
+                    product_size_id={product_size_id}
+                    product_style={product_style}
+                    price={price}
+                    highest_bid={highest_bid}
+                    lowest_ask={lowest_ask}
+                    expired_date={expired_date}
+                  />
+                )
+              )}
+            </tbody>
+          )}
+        </Table>
+      </ProcessTab>
+    </BuyingTabsComp>
+  );
 }
 
 const BuyingTabsComp = styled.div``;

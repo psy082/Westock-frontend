@@ -1,108 +1,53 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import SidebarNav from "./Components/SidebarNav/SidebarNav";
 import BuyingContent from "./Components/BuyingContent/BuyingContent";
 import SellingContent from "./Components/SellingContent/SellingContent";
-import styled from "styled-components";
 
-class MyAccount extends Component {
-  state = {
-    activeTab: "Buying",
-    sidebars: [
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/security.svg?auto=compress,format",
-        sidebarTitle: "Security",
-        sidebarDescription: "Two-Step Verification",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/buying.svg?auto=compress,format",
-        sidebarTitle: "Buying",
-        sidebarDescription: "Active Bids, In-Progress, Completed Orders",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/account_menu/selling.svg?auto=compress,format",
-        sidebarTitle: "Selling",
-        sidebarDescription: "Active Asks, In-Progress, Completed Sales",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/account_menu/profile.svg?auto=compress,format",
-        sidebarTitle: "Profile",
-        sidebarDescription: "Learn what's unique to you",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/account_menu/portfolio.svg?auto=compress,format",
-        sidebarTitle: "Portfolio",
-        sidebarDescription: "See the value of your items",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/account_menu/following.svg?auto=compress,format",
-        sidebarTitle: "Following",
-        sidebarDescription: "Products you're watching",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/account_menu/settings.svg?auto=compress,format",
-        sidebarTitle: "Settings",
-        sidebarDescription: "Payments, Payouts, Addresses",
-      },
-      {
-        sidebarImg:
-          "https://stockx-assets.imgix.net/png/icons/logout.svg?auto=compress,format",
-        sidebarTitle: "Log Out",
-        sidebarDescription: "",
-      },
-    ],
+function MyAccount() {
+  const [activeTab, setActiveTab] = useState("Buying");
+  const [sidebarMenus, setSidebarMenus] = useState([]);
+
+  useEffect(() => {
+    fetch("/Data/mockSidebarMenu.json")
+      .then((res) => res.json())
+      .then((res) => {
+        setSidebarMenus(res.sidebarMenus);
+      });
+  }, []);
+
+  const handleOnClick = (id) => {
+    setActiveTab(id);
   };
 
-  handleOnClick = (id) => {
-    this.setState({ activeTab: id });
-  };
-
-  render() {
-    const {
-      state: { activeTab },
-      handleOnClick,
-    } = this;
-    return (
-      <>
-        <Nav />
-        <PageContainer>
-          <Sidebar>
-            <Gab />
-            <UsernameContainer>
-              <Username>Daseul Song</Username>
-            </UsernameContainer>
-            <SidebarNavWrapper>
-              {this.state.sidebars.map(
-                ({ sidebarImg, sidebarTitle, sidebarDescription }) => (
-                  <SidebarNav
-                    key={sidebarImg}
-                    sidebarImg={sidebarImg}
-                    sidebarTitle={sidebarTitle}
-                    sidebarDescription={sidebarDescription}
-                    activeTab={activeTab}
-                    handleOnClick={handleOnClick}
-                  />
-                )
-              )}
-            </SidebarNavWrapper>
-          </Sidebar>
-          <DashboardWrapper>
-            {this.state.activeTab === "Buying" ? (
-              <BuyingContent />
-            ) : (
-              <SellingContent />
-            )}
-          </DashboardWrapper>
-        </PageContainer>
-      </>
-    );
-  }
+  return (
+    <>
+      <Nav />
+      <PageContainer>
+        <Sidebar>
+          <Gab />
+          <UsernameContainer>
+            <Username>Daseul Song</Username>
+          </UsernameContainer>
+          <SidebarNavWrapper>
+            {sidebarMenus.map((el) => (
+              <SidebarNav
+                key={el.sidebarImg}
+                sidebarImg={el.sidebarImg}
+                sidebarTitle={el.sidebarTitle}
+                sidebarDescription={el.sidebarDescription}
+                activeTab={activeTab}
+                handleOnClick={handleOnClick}
+              />
+            ))}
+          </SidebarNavWrapper>
+        </Sidebar>
+        <DashboardWrapper>
+          {activeTab === "Buying" ? <BuyingContent /> : <SellingContent />}
+        </DashboardWrapper>
+      </PageContainer>
+    </>
+  );
 }
 const Nav = styled.div`
   min-height: 90px;
