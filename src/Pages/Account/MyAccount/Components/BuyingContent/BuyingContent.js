@@ -14,9 +14,7 @@ function BuyingContent() {
     })
       .then((response) => response.json())
       .then(({ BUYING_INFOS }) => {
-        setProducts({ products: BUYING_INFOS }, () => {
-          console.log(products);
-        });
+        setProducts(BUYING_INFOS);
       });
   }, []);
 

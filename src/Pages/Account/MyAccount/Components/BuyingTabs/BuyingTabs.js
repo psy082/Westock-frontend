@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SvgSortBuying from "../SvgSort/SvgSortBuying";
 import BuyingCurrentList from "../BuyingCurrentList/BuyingCurrentList";
 
 function BuyingTabs(props) {
-  const [isActive, setActive] = useState(0);
+  const [isActive] = useState(0);
 
   return (
     <BuyingTabsComp>
       <ProcessTab>
         <TabList>
-          <ListElement isActive="">
-            <A clicked={setActive === 0}>
+          <ListElement>
+            <A clicked={isActive === 0}>
               <Span>current</Span>
             </A>
           </ListElement>
-          <ListElement isActive="">
-            <A clicked={setActive === 1}>
+          <ListElement>
+            <A clicked={isActive === 1}>
               <Span>pending</Span>
             </A>
           </ListElement>
-          <ListElement isActive="">
+          <ListElement>
             <A>
               <Span>history</Span>
             </A>
