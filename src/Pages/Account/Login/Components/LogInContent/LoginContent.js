@@ -14,8 +14,8 @@ function LoginContent() {
     fetch(`${API_LOGIN}`, {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
+        email: email,
+        password: password,
       }),
     })
       .then((response) => response.json())

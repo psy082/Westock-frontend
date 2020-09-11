@@ -97,7 +97,7 @@ function SignUpContent() {
           <Span>Privacy Policy</Span>
         </TermsText>
       </TermsWrapper>
-      <ButtonSignUp onClick={() => handleOnclick}>Sign Up</ButtonSignUp>
+      <ButtonSignUp onClick={handleOnclick}>Sign Up</ButtonSignUp>
     </>
   );
 }
