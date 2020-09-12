@@ -23,7 +23,7 @@ function LoginContent() {
         if (response.ACCESS_TOKEN) {
           alert("로그인 성공");
           console.log(response);
-          sessionStorage.setItem("ACCESS_TOKEN", response.ACCESS_TOKEN);
+          localStorage.setItem("ACCESS_TOKEN", response.ACCESS_TOKEN);
           history.push("/");
         } else {
           alert("로그인 실패");

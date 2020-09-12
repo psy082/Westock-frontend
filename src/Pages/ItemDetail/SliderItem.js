@@ -1,24 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function SliderItem({ relatedProducts }) {
   return (
     <>
-      {relatedProducts.map((el, idx) => (
-        <SliderItemWrapper key={idx}>
-          <FlexCenter>
-            <img src={el.img} alt="" />
-          </FlexCenter>
-          <FlexColumn>
-            <GreyContainer>
-              <SliderItemName>{el.name}</SliderItemName>
-              <SliderGreyTxt>Lowest Ask</SliderGreyTxt>
-              <SliderValue>{`$${el.price}`}</SliderValue>
-              <SliderGreyTxt>{`Last Sale: $${el.lastSale}`}</SliderGreyTxt>
-            </GreyContainer>
-          </FlexColumn>
-        </SliderItemWrapper>
-      ))}
+      {relatedProducts?.map(
+        ({ product_id, name, thumnail, average_price }, idx) => (
+          <SliderItemWrapper key={idx}>
+            <Link to={`/${product_id}`}>
+              <FlexCenter>
+                <img src={thumnail} alt="thumbnail" />
+              </FlexCenter>
+              <FlexColumn>
+                <GreyContainer>
+                  <SliderItemName>{name}</SliderItemName>
+                  <SliderGreyTxt>Lowest Ask</SliderGreyTxt>
+                  <SliderValue>{average_price}</SliderValue>
+                  {/* <SliderGreyTxt>{`Last Sale: $${el.lastSale}`}</SliderGreyTxt> 백엔드 구현준비중 */}
+                </GreyContainer>
+              </FlexColumn>
+            </Link>
+          </SliderItemWrapper>
+        )
+      )}
     </>
   );
 }
@@ -34,6 +39,11 @@ const SliderItemWrapper = styled.li`
   border-radius: 3px;
   border: 2px solid #fafafa;
   margin-right: 13px;
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
 
   img {
     position: relative;

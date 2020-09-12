@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-export default function SizePopUp(props) {
-  const [sizeList, setSize] = useState([]);
+export default function SizePopUp({ isActive, getSize, closePopUp, sizeList }) {
   const [selected, setSelected] = useState(1);
-  const { isActive, getSize, closePopUp } = props;
-
-  useEffect(() => {
-    fetch("Data/ItemdetailData.json")
-      .then((res) => res.json())
-      .then((res) => setSize(res.sizeList));
-  }, []);
 
   const selectSize = (idx) => {
     setSelected(idx);
@@ -36,7 +28,7 @@ export default function SizePopUp(props) {
               selected={selected}
             >
               <Size>{`US ${el.size}`}</Size>
-              <Value>{`$${el.lowestAsk}`}</Value>
+              <Value>{el.lowestAsk}</Value>
             </ListItem>
           ))}
         </ul>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Nav from "../../../Components/Nav/Nav";
 import SidebarNav from "./Components/SidebarNav/SidebarNav";
 import BuyingContent from "./Components/BuyingContent/BuyingContent";
 import SellingContent from "./Components/SellingContent/SellingContent";
@@ -22,7 +23,7 @@ function MyAccount() {
 
   return (
     <>
-      <Nav />
+      <Nav type="rest" />
       <PageContainer>
         <Sidebar>
           <Gab />
@@ -49,11 +50,10 @@ function MyAccount() {
     </>
   );
 }
-const Nav = styled.div`
-  min-height: 90px;
-`;
 
 const PageContainer = styled.div`
+  position: relative;
+  /* top: 111px; */
   background-color: #ffffff;
 `;
 

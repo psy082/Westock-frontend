@@ -4,16 +4,9 @@ import SliderItem from "./SliderItem";
 
 const TOTAL_SLIDES = 2;
 
-function Slider() {
+function Slider({ relatedProducts }) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [relatedProducts, setRelatedProducts] = useState([]);
   const slideRef = useRef(null);
-
-  useEffect(() => {
-    fetch("/Data/ItemDetailData.json")
-      .then((res) => res.json())
-      .then((res) => setRelatedProducts(res.relatedProducts));
-  }, []);
 
   useEffect(() => {
     slideRef.current.style.transition = "all .5s ease-in-out";
