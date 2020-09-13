@@ -27,9 +27,9 @@ function FunctionBlock({ sort, setSubFilter }) {
             </span>
             <span className="filterArrow">
               {!filterClicked ? (
-                <img alt="arrowDown" src="/images/chevron_down.svg" />
+                <img alt="arrowDown" src="/Images/chevron_down.svg" />
               ) : (
-                <img alt="arrowUp" src="/images/chevron_up.svg" />
+                <img alt="arrowUp" src="/Images/chevron_up.svg" />
               )}
             </span>
           </FilterText>
@@ -160,20 +160,20 @@ const getViewButton = (view, setFunction) => {
     grid: (
       <>
         <ViewButton disabled={true}>
-          <img alt="grid_active" src="/images/grid_black.svg" />
+          <img alt="grid_active" src="/Images/grid_black.svg" />
         </ViewButton>
         <ViewButton onClick={() => setFunction("list")}>
-          <img alt="list" src="/images/list_gray.svg" />
+          <img alt="list" src="/Images/list_gray.svg" />
         </ViewButton>
       </>
     ),
     list: (
       <>
         <ViewButton onClick={() => setFunction("grid")}>
-          <img alt="grid" src="/images/grid_gray.svg" />
+          <img alt="grid" src="/Images/grid_gray.svg" />
         </ViewButton>
         <ViewButton disabled={true}>
-          <img alt="list_active" src="/images/list_black.svg" />
+          <img alt="list_active" src="/Images/list_black.svg" />
         </ViewButton>
       </>
     ),
