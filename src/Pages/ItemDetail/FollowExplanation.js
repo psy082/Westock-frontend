@@ -28,7 +28,7 @@ export default function FollowExplanation({
 
 const PopUp = styled.div`
   position: absolute;
-  top: 60px;
+  top: 161px;
   right: 340px;
   ${({ theme }) => theme.flexColumnCenter};
   width: 280px;

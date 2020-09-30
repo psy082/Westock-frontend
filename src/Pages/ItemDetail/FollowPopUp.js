@@ -58,7 +58,7 @@ export default function FollowPopUp({
 const PopUp = styled.div`
   ${({ theme }) => theme.flexColumnCenter};
   position: absolute;
-  top: 60px;
+  top: 161px;
   right: 340px;
   width: 280px;
   margin-top: 25px;
