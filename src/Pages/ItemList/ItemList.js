@@ -30,56 +30,24 @@ function ItemList() {
   });
 
   useEffect(() => {
-    const makeNewQS = () => {
-      const {
-        category,
-        series,
-        sizeTypes,
-        sizes,
-        prices,
-        releaseYears,
-      } = queries;
-      const { page, sort } = subQueries;
-      let newQS = "";
-      newQS =
-        newQS + (category === "air jordan" ? `?category=air%20jordan` : "");
-      newQS =
-        newQS +
-        (series ? (newQS ? `&series=${series}` : `?series=${series}`) : "");
-      newQS =
-        newQS +
-        (sizeTypes
-          ? newQS
-            ? `&sizeTypes=${sizeTypes}`
-            : `?sizeTypes=${sizeTypes}`
-          : "");
-      newQS =
-        newQS + (sizes ? (newQS ? `&sizes=${sizes}` : `?sizes=${sizes}`) : "");
-      newQS =
-        newQS +
-        (prices.length
-          ? newQS
-            ? `&prices=${prices.join(",")}`
-            : `?prices=${prices.join(",")}`
-          : "");
-      newQS =
-        newQS +
-        (releaseYears.length
-          ? newQS
-            ? `&releaseYears=${releaseYears.join(",")}`
-            : `?releaseYears=${releaseYears.join(",")}`
-          : "");
-      newQS = newQS + (sort ? (newQS ? `&sort=${sort}` : `?sort=${sort}`) : "");
-      newQS =
-        newQS + (page > 1 ? (newQS ? `&page=${page}` : `?page=${page}`) : "");
-      return newQS;
-    };
+    const newQS = (() => {
+      const newQS = { ...queries, ...subQueries };
 
-    const newQS = makeNewQS();
+      newQS.category = newQS.category === "air jordan" ? "air jordan" : "";
+      newQS.page = newQS.page > 1 ? newQS.page : "";
+
+      for (const [key, value] of Object.entries(newQS)) {
+        if (!value) delete newQS[key];
+      }
+
+      return qs.stringify(newQS, { arrayFormat: "comma" });
+    })();
+
     history.push({
       pathname: "sneakers",
       search: newQS,
     });
+
     if (JSON.stringify(qs.parse(newQS)) !== JSON.stringify(qs.parse(search))) {
       document.documentElement.scrollTop = 0;
       history.go(0);

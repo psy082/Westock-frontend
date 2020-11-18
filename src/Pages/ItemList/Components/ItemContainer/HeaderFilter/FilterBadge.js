@@ -39,7 +39,7 @@ function FilterBadge({ queries, setFilter, resetFilters }) {
     setSingleBadges(singleBadges);
     setMultiBadges(multiBadges);
   }, [queries, setFilter]);
-  console.log(singleBadges, multiBadges);
+
   return (
     <FilterBadgeList>
       {singleBadges.length ? (

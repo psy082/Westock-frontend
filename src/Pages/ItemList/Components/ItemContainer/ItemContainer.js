@@ -47,9 +47,7 @@ function ItemContainer({
     }
 
     getProducts();
-  }, [sort, queries, subQueries]);
-
-  console.log(products, lastPage);
+  }, [page, sort, queries, subQueries]);
 
   return (
     <Container>
